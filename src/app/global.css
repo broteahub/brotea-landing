@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-space-grotesk: 'Space Grotesk', sans-serif;
+    --font-press-start: 'Press Start 2P', cursive;
+  }
+  
+  body {
+    font-family: var(--font-space-grotesk);
+  }
+}
+
+@layer components {
+  .nav-link {
+    @apply text-[15px] font-medium text-[#1A1F2C]/70 hover:text-[#1A1F2C] transition-colors;
+  }
+
+  .pixel-text {
+    font-family: var(--font-press-start);
+    letter-spacing: 0.2em;
+  }
+
+  .hero-card {
+    @apply rounded-[32px] p-12 relative overflow-hidden;
+  }
+
+  .button-primary {
+    @apply bg-[#1A1F2C] text-white px-8 py-3 rounded-[12px] text-[15px] font-medium;
+  }
+
+  .button-secondary {
+    @apply bg-[#E1E7EF] text-[#1A1F2C] px-8 py-3 rounded-[12px] text-[15px] font-medium;
+  }
+
+  .button-neon {
+    @apply bg-[#CAFF00] text-[#1A1F2C] px-8 py-3 rounded-[12px] text-[15px] font-medium;
+  }
+}
