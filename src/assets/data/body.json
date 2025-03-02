@@ -1,0 +1,181 @@
+{
+  "header": {
+    "title": "Brotea conecta talento y oportunidades",
+    "subtitle": "Impulsando el desarrollo de estudiantes y emprendedores a través de la colaboración y la tecnología.",
+    "cta": {
+      "text": "Únete a Brotea",
+      "link": "https://t.me/broteaofficial"
+    }
+  },
+  "about": {
+    "title": "¿Qué es Brotea?",
+    "description": "Brotea nace para conectar talento y oportunidades, impulsando el desarrollo de estudiantes y emprendedores a través de la colaboración y la tecnología."
+  },
+  "hackathons": {
+    "title": "Hackatones en los que hemos participado",
+    "events": [
+      {
+        "name": "OsloLegal Hackathon 2024",
+        "year": 2024,
+        "logo": "/logos/hackathons/oslolegal-2024.svg"
+      },
+      {
+        "name": "Starknet Denver Hacker House 2025",
+        "year": 2025,
+        "logo": "/logos/hackathons/starknet-denver-2025.svg"
+      },
+      {
+        "name": "ETHDenver2025",
+        "year": 2025,
+        "logo": "/logos/hackathons/ethdenver-2025.svg"
+      }
+    ]
+  },
+  "events": {
+    "title": "Eventos a los que hemos asistido",
+    "web3": [
+      {
+        "name": "Merge Madrid 2024",
+        "logo": "/logos/events/web3/merge-madrid-2024.svg"
+      },
+      {
+        "name": "Eth Global Bangkok",
+        "logo": "/logos/events/web3/eth-global-bangkok.svg"
+      }
+    ],
+    "web2": [
+      {
+        "name": "Flutter Vikings Meetup 2024",
+        "logo": "/logos/events/web2/flutter-vikings-2024.svg"
+      },
+      {
+        "name": "Flutter & Friends Stockholm 2024",
+        "logo": "/logos/events/web2/flutter-friends-stockholm-2024.svg"
+      }
+    ]
+  },
+  "partners": {
+    "title": "Marcas con las que hemos colaborado",
+    "companies": [
+      {
+        "name": "Hedera",
+        "logo": "/logos/partners/hedera.svg"
+      },
+      {
+        "name": "Flow",
+        "logo": "/logos/partners/flow.svg"
+      },
+      {
+        "name": "Polygon",
+        "logo": "/logos/partners/polygon.svg"
+      },
+      {
+        "name": "Indiana Brands",
+        "logo": "/logos/partners/indiana-brands.svg"
+      },
+      {
+        "name": "OMI",
+        "logo": "/logos/partners/omi.svg"
+      },
+      {
+        "name": "ElizaOS",
+        "logo": "/logos/partners/elizaos.svg"
+      },
+      {
+        "name": "Owqlo",
+        "logo": "/logos/partners/owqlo.svg"
+      }
+    ]
+  },
+  "contributors": {
+    "title": "Personas y proyectos que han aportado a Brotea",
+    "collaborators": [
+      {
+        "name": "CryptoConexion",
+        "logo": "/logos/contributors/cryptoconexion.svg"
+      },
+      {
+        "name": "FruteoClub",
+        "logo": "/logos/contributors/fruteoclub.svg"
+      },
+      {
+        "name": "AgentCamp",
+        "logo": "/logos/contributors/agentcamp.svg"
+      },
+      {
+        "name": "Owqlo",
+        "logo": "/logos/contributors/owqlo.svg"
+      },
+      {
+        "name": "Chia Restaurante",
+        "logo": "/logos/contributors/chia-restaurante.svg"
+      },
+      {
+        "name": "Dynamic",
+        "logo": "/logos/contributors/dynamic.svg"
+      },
+      {
+        "name": "Flutter",
+        "logo": "/logos/contributors/flutter.svg"
+      }
+    ]
+  },
+  "technology": {
+    "title": "Herramientas con las que trabajamos",
+    "tools": [
+      {
+        "name": "Flutter",
+        "logo": "/logos/technology/flutter.svg"
+      },
+      {
+        "name": "Dcm",
+        "logo": "/logos/technology/dcm.svg"
+      },
+      {
+        "name": "Excalidraw",
+        "logo": "/logos/technology/excalidraw.svg"
+      },
+      {
+        "name": "Next.js",
+        "logo": "/logos/technology/nextjs.svg"
+      },
+      {
+        "name": "Clerk",
+        "logo": "/logos/technology/clerk.svg"
+      },
+      {
+        "name": "Base",
+        "logo": "/logos/technology/base.svg"
+      },
+      {
+        "name": "Firebase",
+        "logo": "/logos/technology/firebase.svg"
+      },
+      {
+        "name": "MongoDB",
+        "logo": "/logos/technology/mongodb.svg"
+      }
+    ]
+  },
+  "recruitment": {
+    "title": "Únete a Brotea",
+    "description": "Si eres estudiante, experto en tecnología o tienes herramientas que pueden aportar a la comunidad, queremos conocerte.",
+    "form": {
+      "fields": [
+        { "name": "Nombre", "type": "text", "required": true },
+        { "name": "Correo Electrónico", "type": "email", "required": true },
+        { "name": "¿Cómo puedes aportar?", "type": "textarea", "required": true },
+        { "name": "Categoría", "type": "select", "options": [ "Experto", "Estudiante", "Herramienta" ], "required": true }
+      ],
+      "submit_button": "Enviar aplicación"
+    }
+  },
+  "socials": {
+    "title": "Conéctate con nosotros",
+    "links": {
+      "X (Twitter)": "https://x.com/broteaofficial",
+      "Telegram": "https://t.me/broteaofficial",
+      "Instagram": "https://www.instagram.com/broteaofficial"
+    }
+  }
+}

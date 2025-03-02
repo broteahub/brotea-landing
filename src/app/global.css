@@ -6,10 +6,13 @@
   :root {
     --font-space-grotesk: 'Space Grotesk', sans-serif;
     --font-press-start: 'Press Start 2P', cursive;
+    --font-pp-neue-machina: 'PP Neue Machina', sans-serif;
+    --font-biform-pixel: 'Biform Pixel', monospace;
   }
   
   body {
-    font-family: var(--font-space-grotesk);
+    font-family: var(--font-pp-neue-machina);
+    background-color: #9b87f5;
   }
 }
 
@@ -19,8 +22,8 @@
   }
 
   .pixel-text {
-    font-family: var(--font-press-start);
-    letter-spacing: 0.2em;
+    font-family: var(--font-biform-pixel);
+    letter-spacing: 0.1em;
   }
 
   .hero-card {
@@ -28,14 +31,54 @@
   }
 
   .button-primary {
-    @apply bg-[#1A1F2C] text-white px-8 py-3 rounded-[12px] text-[15px] font-medium;
+    @apply bg-[#0F0F1E] text-white px-8 py-3 rounded-full text-[15px] font-medium transition-all hover:bg-[#0F0F1E]/90;
   }
 
   .button-secondary {
-    @apply bg-[#E1E7EF] text-[#1A1F2C] px-8 py-3 rounded-[12px] text-[15px] font-medium;
+    @apply bg-white text-[#1A1F2C] px-8 py-3 rounded-full text-[15px] font-medium transition-all hover:bg-white/90;
   }
 
   .button-neon {
-    @apply bg-[#CAFF00] text-[#1A1F2C] px-8 py-3 rounded-[12px] text-[15px] font-medium;
+    @apply bg-[#CAFF00] text-[#1A1F2C] px-8 py-3 rounded-full text-[15px] font-medium transition-all hover:bg-[#CAFF00]/90;
   }
+  
+  .card {
+    @apply rounded-[24px] md:rounded-[32px] p-6 md:p-12 relative overflow-hidden;
+  }
+  
+  .card-purple {
+    @apply bg-[#9b87f5] text-white;
+  }
+  
+  .card-pink {
+    @apply bg-[#FF8BA7] text-[#1A1F2C];
+  }
+  
+  .card-dark {
+    @apply bg-[#0F0F1E] text-white;
+  }
+}
+
+@font-face {
+  font-family: 'PP Neue Machina';
+  src: url('/assets/fonts/PP Neue Machina/PPNeueMachina-PlainRegular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Machina';
+  src: url('/assets/fonts/PP Neue Machina/PPNeueMachina-PlainUltrabold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Biform Pixel';
+  src: url('/assets/fonts/Biform_Pixel.otps/biform_pixel.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
