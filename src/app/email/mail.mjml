@@ -1,0 +1,177 @@
+<mjml>
+  <mj-head>
+    <mj-font name="PP Neue Machina" href="fonts.css" />
+    <mj-attributes>
+      <!-- Fuente y estilos globales -->
+      <mj-all font-family="'PP Neue Machina', 'Space Grotesk', Helvetica, Arial, sans-serif" />
+      <mj-text font-size="16px" color="#FFFFFF" />
+      <!-- Botón principal con color de la marca -->
+      <mj-button background-color="#CCFF00" color="#1E0B2C" border-radius="8px" padding="12px 24px" font-size="16px" font-weight="bold" />
+    </mj-attributes>
+    <mj-style>
+      @import url('fonts.css');
+      
+      .main-container {
+      background-color: #7B68EE;
+      }
+      .lime-card {
+      background-color: #CCFF00;
+      border-radius: 16px;
+      padding: 15px;
+      }
+      .purple-card {
+      background-color: #7B68EE;
+      border-radius: 16px;
+      padding: 15px;
+      }
+      .pink-card {
+      background-color: #FF6B9E;
+      border-radius: 16px;
+      padding: 15px;
+      }
+      .white-card {
+      background-color: #FFFFFF;
+      border-radius: 16px;
+      padding: 15px;
+      }
+      .dark-card {
+      background-color: #1E0B2C;
+      border-radius: 16px;
+      padding: 15px;
+      }
+      .divider {
+      border-color: rgba(255, 255, 255, 0.2);
+      border-width: 1px;
+      padding: 10px 0;
+      }
+      .title {
+      font-family: 'PP Neue Machina', 'Space Grotesk', Helvetica, Arial, sans-serif;
+      font-weight: bold;
+      }
+      .subtitle {
+      font-family: 'PP Neue Machina', 'Space Grotesk', Helvetica, Arial, sans-serif;
+      font-weight: 500;
+      }
+      .body-text {
+      font-family: 'PP Neue Machina', 'Space Grotesk', Helvetica, Arial, sans-serif;
+      font-weight: normal;
+      }
+      .social-button {
+      border-radius: 12px !important;
+      }
+    </mj-style>
+  </mj-head>
+
+  <mj-body background-color="#7B68EE">
+    <!-- Encabezado con logo -->
+    <mj-section padding="20px 0">
+      <mj-column>
+        <mj-image width="150px" src="<%= brand.logo_base64 %>" alt="Brotea Logo" align="center" />
+      </mj-column>
+    </mj-section>
+
+    <!-- Título principal -->
+    <mj-section padding="0 20px">
+      <mj-column>
+        <mj-text font-size="32px" font-weight="bold" align="center" padding-bottom="20px" color="#FFFFFF" css-class="title">
+          ¡Bienvenido a <%= app_name %>!
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Tarjeta verde lima -->
+    <mj-section padding="10px 20px">
+      <mj-column>
+        <mj-wrapper css-class="lime-card" padding="20px">
+          <mj-section padding="0">
+            <mj-column>
+              <mj-text font-size="20px" font-weight="bold" color="#1E0B2C" css-class="title">
+                Hola <%= user.firstName %> <%= user.lastName %> 👋
+              </mj-text>
+              <mj-text font-size="16px" color="#1E0B2C" css-class="body-text" padding-top="10px">
+                Estamos emocionados de tenerte como parte de nuestra comunidad. Juntos podemos <span style="font-weight: bold;">conectar talento con oportunidades</span> y crear un ecosistema de crecimiento.
+              </mj-text>
+            </mj-column>
+          </mj-section>
+        </mj-wrapper>
+      </mj-column>
+    </mj-section>
+
+    <!-- Tarjeta morada oscura con CTA -->
+    <mj-section padding="10px 20px">
+      <mj-column>
+        <mj-wrapper css-class="dark-card" padding="20px">
+          <mj-section padding="0">
+            <mj-column>
+              <mj-text font-size="18px" font-weight="bold" color="#FFFFFF" css-class="subtitle" align="center">
+                Descubre todo lo que tenemos para ti
+              </mj-text>
+              <mj-button href="<%= cta.url %>" align="center" padding-top="15px">
+                <%= cta.text %>
+              </mj-button>
+            </mj-column>
+          </mj-section>
+        </mj-wrapper>
+      </mj-column>
+    </mj-section>
+
+    <!-- Tarjeta rosa con mensaje inspirador -->
+    <mj-section padding="10px 20px">
+      <mj-column>
+        <mj-wrapper css-class="pink-card" padding="20px">
+          <mj-section padding="0">
+            <mj-column>
+              <mj-text font-size="16px" color="#FFFFFF" css-class="body-text" font-style="italic" align="center">
+                "Transforma tus ideas en realidad y crece con nuestra comunidad"
+              </mj-text>
+            </mj-column>
+          </mj-section>
+        </mj-wrapper>
+      </mj-column>
+    </mj-section>
+
+    <!-- Título de redes sociales -->
+    <mj-section padding="20px 20px 0">
+      <mj-column>
+        <mj-text font-size="24px" font-weight="bold" align="center" color="#CCFF00" css-class="title">
+          Conecta y Crece
+        </mj-text>
+        <mj-text font-size="16px" align="center" padding-top="10px" css-class="body-text">
+          Únete a nuestra comunidad en redes sociales:
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Iconos de redes sociales -->
+    <mj-section padding="10px 20px">
+      <mj-column width="33.33%">
+        <mj-button href="<%= brand.telegram_url %>" background-color="#FFFFFF" color="#7B68EE" border-radius="12px" padding="10px" css-class="social-button">
+          <img src="<%= brand.facebook_icon_base64 %>" width="30" alt="Telegram" style="display: block; margin: 0 auto;" />
+        </mj-button>
+      </mj-column>
+      <mj-column width="33.33%">
+        <mj-button href="<%= brand.twitter_url %>" background-color="#FFFFFF" color="#7B68EE" border-radius="12px" padding="10px" css-class="social-button">
+          <img src="<%= brand.twitter_icon_base64 %>" width="30" alt="Twitter" style="display: block; margin: 0 auto;" />
+        </mj-button>
+      </mj-column>
+      <mj-column width="33.33%">
+        <mj-button href="<%= brand.instagram_url %>" background-color="#FFFFFF" color="#7B68EE" border-radius="12px" padding="10px" css-class="social-button">
+          <img src="<%= brand.instagram_icon_base64 %>" width="30" alt="Instagram" style="display: block; margin: 0 auto;" />
+        </mj-button>
+      </mj-column>
+    </mj-section>
+
+    <!-- Pie de página -->
+    <mj-section padding="30px 20px 20px">
+      <mj-column>
+        <mj-divider css-class="divider" />
+        <mj-text align="center" font-size="14px" padding-top="20px" css-class="body-text">
+          ¿Necesitas ayuda? <a href="mailto:<%= brand.support_email %>" style="color: #CCFF00; text-decoration: none;">Escríbenos</a>
+        </mj-text>
+        <mj-text align="center" font-size="12px" color="#CCFF00" padding-top="10px" css-class="body-text">
+          © <%= new Date().getFullYear() %> <%= app_name %> | Todos los derechos reservados
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

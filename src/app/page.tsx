@@ -1,67 +1,76 @@
 "use client";
 
+import { useState, useEffect, useRef, FormEvent } from "react";
+import { create } from "zustand";
 import { motion } from "framer-motion";
-import { Menu } from "lucide-react";
+import { Menu, Facebook, X, Instagram, MessageCircle, Copyright } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
 
-// Define types para nuestro contenido
+// Estado para el formulario con Zustand
+const useNewsletterStore = create<{
+  fullname: string;
+  email: string;
+  option: string;
+  setFullname: (v: string) => void;
+  setEmail: (v: string) => void;
+  setOption: (v: string) => void;
+  reset: () => void;
+}>((set) => ({
+  fullname: "",
+  email: "",
+  option: "",
+  setFullname: (v) => set({ fullname: v }),
+  setEmail: (v) => set({ email: v }),
+  setOption: (v) => set({ option: v }),
+  reset: () => set({ fullname: "", email: "", option: "" }),
+}));
+
+// Tipos de la data de contenido
 interface BodyData {
-  header: {
-    title: string;
-    subtitle: string;
-    cta: {
-      text: string;
-      link: string;
-    };
-  };
-  about: {
-    title: string;
-    description: string;
-  };
-  recruitment: {
-    title: string;
-    description: string;
-  };
+  header: { title: string; subtitle: string; cta: { text: string; link: string } };
+  about: { title: string; description: string };
+  recruitment: { title: string; description: string };
 }
 
-// Colores
-const COLORS = {
-  primary: "#9b87f5",
-  secondary: "#FF8BA7",
-  accent: "#CAFF00",
-  dark: "#0F0F1E",
-  text: "#1A1F2C",
-  white: "#FFFFFF",
+// Datos de marca con imágenes en base64 y enlaces
+const brand = {
+  logo_base64:
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAQAAAAAYLlVAAAApElEQVR4nO3YMQrCQBBF4a79VyZshL2gBL2eAkSxCbIGXIFX/4LWErwLjjgAtby38Sc2ZY14SlX4z04qfEzDx4CO9DoOp22n+qJMAx6RCvKICk1XQpOW6rIn7PKiZIg7Sd4+AbXz9csCF+KOnysIT4XOh3QPxz7RCrFo31y38wN3wfL8f+ANn2UkCwe/C1fM1C4cf83feRNzo3lN2h3MCc+AAAAAElFTkSuQmCC",
+  ios_badge_base64:
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAAUCAYAAABPyJ5iAAAAsUlEQVR4nO2XwQnCMBAFfUNURkSgRFgAd4FM9ydzTktEn3n4Z7CBsHA8LALmdkuyFJdUGQOAWZ6+QCC7EhmECdEsa/hz90Vgg4h7J7hNkUZ6k6Q4GnuMiBEn9gTiGUnz1GBCTC2Wzgp22l+jZhEiG5Zq2LCI2ftmU6D2pW+v8dhZ6yvgaRZqlztM07lt8ex2CUG3Y0J9QEELd1+7d37WrscA8bTR2T3m02+AAAAAElFTkSuQmCC",
+  android_badge_base64:
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE4AAAAUCAYAAABrkQGwAAAAt0lEQVR4nO3YwQ3CMBiF4ScYx8K0FhFENmGEh2LOyOOyH+BFoKGCy0c4gY2zN6iJJfWyTZic5jylXlskTE/Gnu+IRkZ/NzbGPGU+ihEmc3yaTJlpSGQ6hSNOAA9oyEUuQR5ocjtHPJwo7vY/tp6zdEH4H+XbLkT0+u+Z6a/2bzyDLp01uePnw26/OtZlq2OMgczr6WsASlsvsh03nTUAAAAASUVORK5CYII=",
+  facebook_icon_base64:
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAlklEQVR4nO2UPQ7CQAyF3UCQzMw3O2IQ44AX8N26RSZxg3i81vAwihzXD0zh9FNoKQnFny5PLy/IBIcH1DOv7/HqCCKw16b9B/4sck1CGEbBIYtJzyu7QHk4KBCuKCElQoL3tiP6WD9z2kRKgo8sTJEihN8+P6nHT8OfW/dNV01dyuW0uZ2b5KNk8Q98RmfkAAAAAElFTkSuQmCC",
+  twitter_icon_base64:
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAl0lEQVR4nO2UMQ6CQBCF7SJ8zMXGkhOFi5dJdUGcYi/0DW0jMQs8O/OIQSBep3SYHnXWY40qAOW0Kkq7a+XL5PTnz2AHmEQCGi9AcRhNhbAi46EKKDe5RG2y7yilvYgQorYdARSPpFD6zovldajbDS1E+5Rf47ACqXqjKx+3q+rfUXHUnIL7JRx3HAP1yspp1oy7KAAAAAElFTkSuQmCC",
+  instagram_icon_base64:
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAnElEQVR4nO2U0Q2CQBCG78uS6YNT0EAl1Jb1HjoMrTpxVZLFY6FZ/gH3TjYyJ+0yY54hSSSk3fMzsJ+Ac+vboAsEVIIShAPfw6+CTu7gII3sALJQSBaSZkCq0FwjWkDLg7JZTHStAArU0lBUfP9iXj80+tM3gKp8A8yfa+xr/MIS2sIc/W80WMPhbT7WWXAAAAABJRU5ErkJggg==",
+  telegram_url: "https://t.me/broteaofficial",
+  twitter_url: "https://x.com/broteaofficial",
+  instagram_url: "https://www.instagram.com/broteaofficial",
+  support_email: "hello@brotea.xyz",
 };
 
 export default function Home() {
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [data, setData] = useState<BodyData | null>(null);
 
   useEffect(() => {
-    // Cargar datos de /api/content
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/content");
-        if (!response.ok) {
-          throw new Error("Failed to fetch content");
-        }
-        const jsonData = await response.json();
+        const res = await fetch("/api/content");
+        if (!res.ok) throw new Error("Error fetching content");
+        const jsonData = await res.json();
         setData(jsonData);
-      } catch (error) {
-        console.error("Error loading content:", error);
-        // Datos por defecto si falla la carga
+      } catch {
         setData({
           header: {
             title: "Brotea conecta talento y oportunidades",
             subtitle:
               "Impulsando el desarrollo de estudiantes y emprendedores a través de la colaboración y la tecnología.",
-            cta: {
-              text: "Únete a Brotea",
-              link: "https://t.me/broteaofficial",
-            },
+            cta: { text: "Únete a Brotea", link: "https://t.me/broteaofficial" },
           },
           about: {
             title: "¿Qué es Brotea?",
@@ -76,19 +85,17 @@ export default function Home() {
         });
       }
     };
-
     fetchData();
   }, []);
 
-  const scrollToSection = (sectionId: string): void => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
       setIsMenuOpen(false);
     }
   };
 
-  // Items de navegación
   const navItems = [
     { id: "home", label: "Home" },
     { id: "about", label: "About us" },
@@ -98,16 +105,13 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#9b87f5]">
-      {/* Navigation */}
+    <div className="flex flex-col min-h-screen bg-[#9b87f5]">
       <nav className="p-6 relative z-50">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-center">
             <Link href="/" className="text-[32px] tracking-wider text-[#1A1F2C]">
               <div className="pixel-text text-[28px] text-[#1A1F2C]">Brotea</div>
             </Link>
-
-            {/* Botón de menú móvil */}
             <button
               className="md:hidden bg-[#0F0F1E] p-2 rounded-full"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -115,8 +119,6 @@ export default function Home() {
             >
               <Menu className="w-6 h-6 text-white" />
             </button>
-
-            {/* Menú Desktop */}
             <div className="hidden md:flex items-center space-x-8">
               {navItems.map((item) => (
                 <button
@@ -127,13 +129,14 @@ export default function Home() {
                   {item.label}
                 </button>
               ))}
-              <button className="bg-[#0F0F1E] text-white px-6 py-2 rounded-full transition-colors hover:bg-[#0F0F1E]/90">
+              <button
+                onClick={() => scrollToSection("newsletter")}
+                className="bg-[#0F0F1E] text-white px-6 py-2 rounded-full hover:bg-[#0F0F1E]/90"
+              >
                 Join us
               </button>
             </div>
           </div>
-
-          {/* Menú Mobile */}
           {isMenuOpen && (
             <motion.div
               initial={{ opacity: 0, y: -20 }}
@@ -150,7 +153,10 @@ export default function Home() {
                     {item.label}
                   </button>
                 ))}
-                <button className="bg-[#CAFF00] text-black px-6 py-2 rounded-xl text-left transition-colors hover:bg-[#CAFF00]/90">
+                <button
+                  onClick={() => scrollToSection("newsletter")}
+                  className="bg-[#CAFF00] text-black px-6 py-2 rounded-xl text-left transition-colors hover:bg-[#CAFF00]/90"
+                >
                   Join us
                 </button>
               </div>
@@ -159,261 +165,445 @@ export default function Home() {
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-6 space-y-8">
-        {/* Hero Section */}
-        <motion.section
-          id="home"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-[#CAFF00] rounded-[24px] md:rounded-[32px] p-6 md:p-12 relative overflow-hidden"
-        >
-          <div className="md:grid md:grid-cols-2 md:gap-12">
-            <div className="z-10 relative">
-              <h1 className="text-[32px] md:text-[52px] leading-tight font-medium text-black mb-4 font-pp-neue-machina">
-                {data?.header?.title ||
-                  "Conexiones que brotan, ideas que transforman."}
-              </h1>
-              <p className="text-[16px] md:text-[18px] text-black/80 mb-6 font-pp-neue-machina">
-                {data?.header?.subtitle ||
-                  "Donde talento y oportunidades se encuentran para crear un futuro más inclusivo."}
-              </p>
-              <div className="flex space-x-4">
-                <button
-                  onClick={() => scrollToSection("join")}
-                  className="bg-[#0F0F1E] text-white px-6 py-3 rounded-full transition-transform hover:scale-105"
-                >
-                  {data?.header?.cta?.text || "Join us"}
-                </button>
-                <button
-                  onClick={() => scrollToSection("about")}
-                  className="bg-white text-[#1A1F2C] px-6 py-3 rounded-full transition-transform hover:scale-105"
-                >
-                  Descubre más
-                </button>
+      <main className="flex-grow">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 space-y-8">
+          {/* Hero */}
+          <motion.section
+            id="home"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-[#CAFF00] rounded-[24px] md:rounded-[32px] p-6 md:p-12 relative overflow-hidden"
+          >
+            <div className="md:grid md:grid-cols-2 md:gap-12">
+              <div className="z-10 relative">
+                <h1 className="text-[32px] md:text-[52px] leading-tight font-medium text-black mb-4 font-pp-neue-machina">
+                  {data?.header?.title || "Conexiones que brotan, ideas que transforman."}
+                </h1>
+                <p className="text-[16px] md:text-[18px] text-black/80 mb-6 font-pp-neue-machina">
+                  {data?.header?.subtitle ||
+                    "Donde talento y oportunidades se encuentran para crear un futuro más inclusivo."}
+                </p>
+                <div className="flex space-x-4">
+                  <button
+                    onClick={() => scrollToSection("join")}
+                    className="bg-[#0F0F1E] text-white px-6 py-3 rounded-full hover:scale-105"
+                  >
+                    {data?.header?.cta?.text || "Join us"}
+                  </button>
+                  <button
+                    onClick={() => scrollToSection("about")}
+                    className="bg-white text-[#1A1F2C] px-6 py-3 rounded-full hover:scale-105"
+                  >
+                    Descubre más
+                  </button>
+                </div>
+              </div>
+              <div className="relative h-64 md:h-80 mt-8 md:mt-0 overflow-hidden">
+                <Image
+                  src="/assets/images/conecta.webp"
+                  alt="Ilustración Brotea"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
+                  priority
+                />
               </div>
             </div>
+          </motion.section>
 
-            {/* Contenedor con tamaño fijo en mobile y en desktop */}
-            <div className="relative h-64 md:h-80 mt-8 md:mt-0 overflow-hidden">
+          {/* Academy */}
+          <motion.section
+            id="academy"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="relative rounded-[24px] md:rounded-[32px] overflow-hidden h-64 md:h-96"
+          >
+            <div className="absolute inset-0">
               <Image
-                src="/assets/images/conecta.webp"
-                alt="Ilustración Brotea"
+                src="/assets/images/academy.webp"
+                alt="Academy Background"
                 fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 1200px"
+                className="object-cover object-center"
+                priority
+              />
+              <div
+                className="absolute inset-0 w-full h-full"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(90deg, #fff, #fff 2px, transparent 2px, transparent 8px)",
+                  opacity: 0.2,
+                }}
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#9b87f5]/70 to-[#9b87f5]/70 flex flex-col items-center justify-center p-6 md:p-12">
+              <h2 className="pixel-text text-[60px] md:text-[80px] text-[#CAFF00] mb-6 text-center">
+                Academy
+              </h2>
+              <button className="bg-[#0F0F1E] text-white px-6 py-2 rounded-xl hover:bg-[#0F0F1E]/90">
+                Descubre más
+              </button>
+            </div>
+          </motion.section>
+
+          {/* Info Cards */}
+          <section id="about" className="md:grid md:grid-cols-2 md:gap-6 space-y-6 md:space-y-0 mb-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="bg-[#FF8BA7] rounded-[24px] md:rounded-[32px] p-6 md:p-12 relative overflow-hidden"
+            >
+              <div className="relative z-10">
+                <h3 className="text-[24px] md:text-[32px] leading-tight font-medium mb-6 text-[#1A1F2C] font-pp-neue-machina">
+                  {data?.about?.title || "¿Qué es Brotea?"}
+                </h3>
+                <Link
+                  href={brand.instagram_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-[#CAFF00] text-[#1A1F2C] px-6 py-3 rounded-full hover:scale-105"
+                >
+                  Descúbrelo aquí
+                </Link>
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="bg-[#FF8BA7] rounded-[24px] md:rounded-[32px] p-6 md:p-12 relative overflow-hidden"
+            >
+              <div className="relative z-10">
+                <h3 className="text-[24px] md:text-[32px] leading-tight font-medium mb-6 text-[#1A1F2C] font-pp-neue-machina">
+                  ¿Tienes un proyecto?
+                  <br />
+                  Brotea te ayuda.
+                </h3>
+                <Link
+                  href={brand.telegram_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-[#CAFF00] text-[#1A1F2C] px-6 py-3 rounded-full hover:scale-105"
+                >
+                  Descubre como aquí
+                </Link>
+              </div>
+            </motion.div>
+          </section>
+
+          {/* Grow */}
+          <motion.section
+            id="grow"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="relative rounded-[24px] md:rounded-[32px] overflow-hidden h-64 md:h-96"
+          >
+            <div className="absolute inset-0">
+              <Image
+                src="/assets/images/grow.webp"
+                alt="Grow"
+                fill
+                sizes="(max-width: 768px) 100vw, 1200px"
+                className="object-cover object-center"
                 priority
               />
             </div>
-          </div>
-        </motion.section>
-
-        {/* Academy Section - Centrada como GROW */}
-        <motion.section
-          id="academy"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="relative rounded-[24px] md:rounded-[32px] overflow-hidden h-64 md:h-96"
-        >
-          {/* Imagen de fondo con object-cover */}
-          <div className="absolute inset-0">
-            <Image
-              src="/assets/images/academy.webp"
-              alt="Academy Background"
-              fill
-              sizes="(max-width: 768px) 100vw, 1200px"
-              className="object-cover object-center"
-              priority
-            />
-            {/* Patrón de líneas sobre la imagen */}
-            <div
-              className="absolute inset-0 w-full h-full"
-              style={{
-                backgroundImage:
-                  "repeating-linear-gradient(90deg, #fff, #fff 2px, transparent 2px, transparent 8px)",
-                opacity: 0.2,
-              }}
-            ></div>
-          </div>
-          {/* Overlay con degradado y contenido centrado */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#9b87f5]/70 to-[#9b87f5]/70 flex flex-col items-center justify-center p-6 md:p-12">
-            <h2 className="pixel-text text-[60px] md:text-[80px] text-[#CAFF00] mb-6 text-center">
-              Academy
-            </h2>
-            <button className="bg-[#0F0F1E] text-white px-6 py-2 rounded-xl transition-colors hover:bg-[#0F0F1E]/90">
-              Descubre más
-            </button>
-          </div>
-        </motion.section>
-
-        {/* Info Cards Grid - Sin imágenes */}
-        <section
-          id="about"
-          className="md:grid md:grid-cols-2 md:gap-6 space-y-6 md:space-y-0 mb-6"
-        >
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="bg-[#FF8BA7] rounded-[24px] md:rounded-[32px] p-6 md:p-12 relative overflow-hidden"
-          >
-            <div className="relative z-10">
-              <h3 className="text-[24px] md:text-[32px] leading-tight font-medium mb-6 text-[#1A1F2C] font-pp-neue-machina">
-                {data?.about?.title || "¿Qué es Brotea?"}
-              </h3>
-              <Link
-                href="https://brotea.org/about"
-                className="inline-block bg-[#CAFF00] text-[#1A1F2C] px-6 py-3 rounded-full transition-transform hover:scale-105"
-              >
-                Descúbrelo aquí
-              </Link>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#CAFF00]/50 to-[#9b87f5]/70 flex flex-col items-center justify-center p-6 md:p-12">
+              <h2 className="pixel-text text-[60px] md:text-[80px] text-[#CAFF00] mb-6 text-center shadow-lg">
+                GROW
+              </h2>
+              <button className="bg-[#0F0F1E] text-white px-6 py-2 rounded-xl hover:bg-[#0F0F1E]/90">
+                Descubre cómo puedes crecer aquí
+              </button>
             </div>
-          </motion.div>
+          </motion.section>
 
-          <motion.div
+          {/* How */}
+          <section id="how" className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="bg-[#0F0F1E] rounded-[24px] md:rounded-[32px] p-4 aspect-square overflow-hidden relative"
+            >
+              <Image
+                src="/assets/images/BROTEA_FOTOGRAFIA_24.webp"
+                alt="Feature"
+                fill
+                sizes="(max-width: 768px) 50vw, 33vw"
+                className="object-cover object-center"
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="bg-[#0F0F1E] rounded-[24px] md:rounded-[32px] p-6 aspect-square overflow-hidden relative"
+            >
+              <Image
+                src="/assets/images/BROTEA_FOTOGRAFIA_10.webp"
+                alt="Feature"
+                fill
+                sizes="(max-width: 768px) 50vw, 33vw"
+                className="object-cover object-center"
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="bg-[#0F0F1E] rounded-[24px] md:rounded-[32px] p-6 aspect-square flex items-center justify-center"
+            >
+              <span className="pixel-text text-[#FF8BA7] text-xl md:text-2xl">lead</span>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="bg-[#0F0F1E] rounded-[24px] md:rounded-[32px] p-6 aspect-square flex items-center justify-center"
+            >
+              <span className="pixel-text text-[#CAFF00] text-xl md:text-2xl">learn</span>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="bg-[#0F0F1E] rounded-[24px] md:rounded-[32px] p-6 aspect-square overflow-hidden relative"
+            >
+              <Image
+                src="/assets/images/BROTEA_FOTOGRAFIA_21.webp"
+                alt="Feature"
+                fill
+                sizes="(max-width: 768px) 50vw, 33vw"
+                className="object-cover object-center"
+              />
+            </motion.div>
+          </section>
+
+          {/* Join */}
+          <motion.section
+            id="join"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="bg-[#FF8BA7] rounded-[24px] md:rounded-[32px] p-6 md:p-12 relative overflow-hidden"
+            className="bg-[#0F0F1E] rounded-[24px] md:rounded-[32px] p-6 md:p-12 relative overflow-hidden"
           >
-            <div className="relative z-10">
-              <h3 className="text-[24px] md:text-[32px] leading-tight font-medium mb-6 text-[#1A1F2C] font-pp-neue-machina">
-                ¿Tienes un proyecto?
-                <br />
-                Brotea te ayuda.
-              </h3>
-              <button className="bg-[#CAFF00] text-[#1A1F2C] px-6 py-3 rounded-full transition-transform hover:scale-105">
-                Descubre como aquí
+            <div className="relative z-10 text-center">
+              <h2 className="text-[32px] md:text-[40px] font-bold text-white mb-6 font-pp-neue-machina">
+                {data?.recruitment?.title || "Únete a Brotea"}
+              </h2>
+              <p className="text-[16px] md:text-[18px] text-white/90 mb-6 font-pp-neue-machina">
+                {data?.recruitment?.description ||
+                  "Si eres estudiante, experto en tecnología o tienes herramientas que puedan aportar a la comunidad, queremos conocerte."}
+              </p>
+              <button
+                onClick={() => window.open(brand.twitter_url, "_blank")}
+                className="bg-[#CAFF00] text-[#1A1F2C] px-6 py-3 rounded-full hover:scale-105"
+              >
+                Únete ahora
+              </button>
+            </div>
+          </motion.section>
+
+          {/* Newsletter */}
+          <motion.section
+            id="newsletter"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="bg-[#0F0F1E] rounded-[24px] md:rounded-[32px] p-6 md:p-12 mt-4 text-white"
+          >
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div className="space-y-4">
+                <h3 className="text-3xl md:text-4xl font-bold font-pp-neue-machina text-[#CAFF00]">
+                  Suscríbete al Newsletter
+                </h3>
+                <p className="text-lg text-white/90 max-w-xl">
+                  Recibe las últimas noticias, eventos y oportunidades de Brotea directamente en tu correo.
+                </p>
+                <div className="hidden md:block">
+                  <div className="flex items-center space-x-4 mt-6">
+                    <div className="w-12 h-12 rounded-full bg-[#CAFF00] flex items-center justify-center">
+                      <span className="text-[#0F0F1E] font-bold">1</span>
+                    </div>
+                    <p className="text-white">Mantente al día con nuestras novedades</p>
+                  </div>
+                  <div className="flex items-center space-x-4 mt-4">
+                    <div className="w-12 h-12 rounded-full bg-[#CAFF00] flex items-center justify-center">
+                      <span className="text-[#0F0F1E] font-bold">2</span>
+                    </div>
+                    <p className="text-white">Accede a contenido exclusivo</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <NewsletterForm />
+              </div>
+            </div>
+          </motion.section>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
+
+function NewsletterForm() {
+  const { fullname, email, option, setFullname, setEmail, setOption, reset } = useNewsletterStore();
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [showErrorModal, setShowErrorModal] = useState(false);
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    const formData = new FormData(e.currentTarget as HTMLFormElement);
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        body: formData,
+      });
+      if (!res.ok) throw new Error("Error en el envío");
+      setStatus("success");
+      reset();
+      setTimeout(() => {
+        setStatus("idle");
+      }, 3000);
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
+      setShowErrorModal(true);
+    }
+  };
+
+  return (
+    <>
+      <div className="bg-[#1A1F2C] p-6 md:p-8 rounded-2xl shadow-xl w-full">
+        <form onSubmit={handleSubmit} className="flex flex-col space-y-5">
+          <div className="space-y-1.5">
+            <label className="block text-sm font-medium text-[#CAFF00]">Nombre y Apellidos</label>
+            <input
+              className="w-full px-4 py-3 rounded-xl text-black focus:outline-none focus:ring-2 focus:ring-[#CAFF00] transition-all text-sm md:text-base"
+              type="text"
+              name="fullname"
+              minLength={5}
+              required
+              value={fullname}
+              onChange={(e) => setFullname(e.target.value)}
+              placeholder="Ej. Carlos Rojas"
+            />
+          </div>
+          <div className="space-y-1.5">
+            <label className="block text-sm font-medium text-[#CAFF00]">Correo electrónico</label>
+            <input
+              className="w-full px-4 py-3 rounded-xl text-black focus:outline-none focus:ring-2 focus:ring-[#CAFF00] transition-all text-sm md:text-base"
+              type="email"
+              name="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Ej. correo@ejemplo.com"
+            />
+          </div>
+          <div className="space-y-1.5">
+            <label className="block text-sm font-medium text-[#CAFF00]">¿Qué deseas hacer?</label>
+            <select
+              className="w-full px-4 py-3 rounded-xl text-black focus:outline-none focus:ring-2 focus:ring-[#CAFF00] transition-all text-sm md:text-base"
+              name="option"
+              required
+              value={option}
+              onChange={(e) => setOption(e.target.value)}
+            >
+              <option value="">Selecciona...</option>
+              <option value="quiero aprender con brotea">Quiero aprender con Brotea</option>
+              <option value="quiero aportar como mentor en brotea">Quiero aportar como mentor en Brotea</option>
+              <option value="quiero donar herramientas a brotea">Quiero donar herramientas a Brotea</option>
+            </select>
+          </div>
+          <button
+            type="submit"
+            className={`px-6 py-3 rounded-xl font-semibold text-base md:text-lg transition-all mt-2 ${
+              status === "loading"
+                ? "bg-gray-400 text-white cursor-not-allowed"
+                : "bg-[#CAFF00] text-[#1A1F2C] hover:scale-105 hover:shadow-lg"
+            }`}
+            disabled={status === "loading"}
+          >
+            {status === "loading" ? (
+              <div className="flex items-center justify-center">
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                Enviando...
+              </div>
+            ) : (
+              "Suscribirme ahora"
+            )}
+          </button>
+          {status === "success" && (
+            <div className="bg-green-500/20 border border-green-500 text-green-500 p-3 rounded-xl text-center text-sm">
+              ¡Gracias por suscribirte! Pronto recibirás noticias de Brotea.
+            </div>
+          )}
+        </form>
+      </div>
+      {showErrorModal && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white rounded-2xl p-6 max-w-md w-full"
+          >
+            <h3 className="text-xl font-bold text-red-600 mb-2">Error en el envío</h3>
+            <p className="text-gray-700 mb-4">
+              Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde o contáctanos a través de nuestras redes sociales.
+            </p>
+            <div className="flex justify-end">
+              <button
+                onClick={() => {
+                  setShowErrorModal(false);
+                  setStatus("idle");
+                }}
+                className="bg-[#0F0F1E] text-white px-4 py-2 rounded-xl hover:bg-[#0F0F1E]/80"
+              >
+                Cerrar
               </button>
             </div>
           </motion.div>
-        </section>
+        </div>
+      )}
+    </>
+  );
+}
 
-        {/* Grow Section */}
-        <motion.section
-          id="grow"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="relative rounded-[24px] md:rounded-[32px] overflow-hidden h-64 md:h-96"
-        >
-          {/* Imagen de fondo con object-cover */}
-          <div className="absolute inset-0">
-            <Image
-              src="/assets/images/grow.webp"
-              alt="Grow"
-              fill
-              sizes="(max-width: 768px) 100vw, 1200px"
-              className="object-cover object-center"
-              priority
-            />
+function Footer() {
+  return (
+    <footer className="bg-[#0F0F1E] text-white p-6 mt-8">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 flex items-center justify-center bg-white rounded-full">
+            <span className="pixel-text text-[#0F0F1E] text-sm">B</span>
           </div>
-          {/* Overlay con degradado */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#CAFF00]/50 to-[#9b87f5]/70 flex flex-col items-center justify-center p-6 md:p-12">
-            <h2 className="pixel-text text-[60px] md:text-[80px] text-[#CAFF00] mb-6 text-center shadow-lg">
-              GROW
-            </h2>
-            <button className="bg-[#0F0F1E] text-white px-6 py-2 rounded-xl transition-colors hover:bg-[#0F0F1E]/90">
-              Descubre cómo puedes crecer aquí
-            </button>
-          </div>
-        </motion.section>
-
-        {/* Feature Cards Grid */}
-        <section
-          id="how"
-          className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-6"
-        >
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="bg-[#0F0F1E] rounded-[24px] md:rounded-[32px] p-4 aspect-square overflow-hidden relative"
-          >
-            <Image
-              src="/assets/images/BROTEA_FOTOGRAFIA_24.webp"
-              alt="Feature"
-              fill
-              sizes="(max-width: 768px) 50vw, 33vw"
-              className="object-cover object-center"
-            />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="bg-[#0F0F1E] rounded-[24px] md:rounded-[32px] p-6 aspect-square overflow-hidden relative"
-          >
-            <Image
-              src="/assets/images/BROTEA_FOTOGRAFIA_10.webp"
-              alt="Feature"
-              fill
-              sizes="(max-width: 768px) 50vw, 33vw"
-              className="object-cover object-center"
-            />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="bg-[#0F0F1E] rounded-[24px] md:rounded-[32px] p-6 aspect-square flex items-center justify-center"
-          >
-            <span className="pixel-text text-[#FF8BA7] text-xl md:text-2xl">
-              lead
+          <div className="flex items-center space-x-1">
+            <Copyright className="w-4 h-4 text-white" />
+            <span className="font-pp-neue-machina text-sm md:text-base">
+              {new Date().getFullYear()} Brotea. Todos los derechos reservados.
             </span>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="bg-[#0F0F1E] rounded-[24px] md:rounded-[32px] p-6 aspect-square flex items-center justify-center"
-          >
-            <span className="pixel-text text-[#CAFF00] text-xl md:text-2xl">
-              learn
-            </span>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="bg-[#0F0F1E] rounded-[24px] md:rounded-[32px] p-6 aspect-square overflow-hidden relative"
-          >
-            <Image
-              src="/assets/images/BROTEA_FOTOGRAFIA_21.webp"
-              alt="Feature"
-              fill
-              sizes="(max-width: 768px) 50vw, 33vw"
-              className="object-cover object-center"
-            />
-          </motion.div>
-        </section>
-
-        {/* Join Us Section */}
-        <motion.section
-          id="join"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="bg-[#0F0F1E] rounded-[24px] md:rounded-[32px] p-6 md:p-12 relative overflow-hidden"
-        >
-          <div className="relative z-10">
-            <h2 className="text-[32px] md:text-[40px] font-bold text-white mb-6 font-pp-neue-machina">
-              {data?.recruitment?.title || "Join us"}
-            </h2>
-            <p className="text-[16px] md:text-[18px] text-white/90 mb-6 font-pp-neue-machina">
-              {data?.recruitment?.description ||
-                "Únete a nuestra comunidad y forma parte de la transformación."}
-            </p>
-            <button className="bg-[#CAFF00] text-[#1A1F2C] px-6 py-3 rounded-full transition-transform hover:scale-105">
-              Únete ahora
-            </button>
           </div>
-        </motion.section>
+        </div>
+        <div className="flex space-x-6">
+          <a href={brand.telegram_url} target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="text-white hover:text-[#CAFF00] transition-colors">
+            <MessageCircle className="w-6 h-6" />
+          </a>
+          <a href={brand.twitter_url} target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="text-white hover:text-[#CAFF00] transition-colors">
+            <X className="w-6 h-6" />
+          </a>
+          <a href={brand.instagram_url} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-white hover:text-[#CAFF00] transition-colors">
+            <Instagram className="w-6 h-6" />
+          </a>
+        </div>
       </div>
-    </div>
+    </footer>
   );
 }
