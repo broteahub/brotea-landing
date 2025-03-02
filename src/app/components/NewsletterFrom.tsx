@@ -1,5 +1,9 @@
 "use client";
 import { useState } from "react";
+import fs from "fs";
+import path from "path";
+import mjml2html from "mjml";
+import nodemailer from "nodemailer";
 
 export default function NewsletterForm() {
   const [name, setName] = useState("");
@@ -43,10 +47,7 @@ async function sendNewsletter(formData: FormData) {
   if (name.length < 5) throw new Error("Nombre muy corto");
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error("Email no válido");
 
-  const fs = require("fs");
-  const path = require("path");
-  const mjml2html = require("mjml");
-  const nodemailer = require("nodemailer");
+  // Usar las importaciones del nivel superior
 
   const mailPath = path.join(process.cwd(), "app", "emails", "mail.mjml");
   const mjmlTemplate = fs.readFileSync(mailPath, "utf8");

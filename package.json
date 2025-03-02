@@ -6,12 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next build && next export -o out"
   },
   "dependencies": {
+    "@types/nodemailer": "6.4.17",
     "framer-motion": "12.4.7",
     "lucide-react": "^0.475.0",
     "mailtrap": "^4.0.0",
+    "mjml": "^4.15.3",
     "next": "15.1.7",
     "nodemailer": "^6.10.0",
     "react": "^19.0.0",
