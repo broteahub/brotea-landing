@@ -1,28 +1,34 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
 
 export const dynamic = 'force-static';
 
 export async function GET() {
   try {
-    // Get the absolute path to the JSON file
-    const filePath = path.join(process.cwd(), 'src', 'assets', 'data', 'body.json');
+    // Datos estáticos para la exportación estática
+    const data = {
+      header: {
+        title: "Conexiones que brotan, ideas que transforman.",
+        subtitle: "Donde talento y oportunidades se encuentran para crear un futuro más inclusivo.",
+        cta: { text: "Únete a Brotea", link: "https://t.me/broteaofficial" }
+      },
+      about: {
+        title: "¿Qué es Brotea?",
+        description: "Brotea nace para conectar talento y oportunidades, impulsando el desarrollo de estudiantes y emprendedores a través de la colaboración y la tecnología."
+      },
+      recruitment: {
+        title: "Únete a Brotea",
+        description: "Si eres estudiante, experto en tecnología o tienes herramientas que pueden aportar a la comunidad, queremos conocerte."
+      }
+    };
     
-    // Read the file
-    const fileContents = fs.readFileSync(filePath, 'utf8');
-    
-    // Parse the JSON
-    const data = JSON.parse(fileContents);
-    
-    // Return the data
+    // Devolver los datos
     return NextResponse.json(data);
   } catch (error) {
-    console.error('Error reading content file:', error);
+    console.error('Error al cargar el contenido:', error);
     return NextResponse.json(
       { 
-        error: 'Failed to load content',
-        message: error instanceof Error ? error.message : 'Unknown error'
+        error: 'Error al cargar el contenido',
+        message: error instanceof Error ? error.message : 'Error desconocido'
       }, 
       { status: 500 }
     );
