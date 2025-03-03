@@ -111,7 +111,7 @@ export default function Home() {
           <div className="flex justify-between items-center">
             <Link href="/" className="text-[32px] tracking-wider text-[#1A1F2C]">
               <Image 
-                src="/assets/images/BROTEA_LOGO-PRINCIPAL_NEGRO_500px.webp"
+                src="/assets/images/BROTEA_LOGO-SECUNDARIO_BLANCO_B_1_500px_2.png"
                 alt="Brotea Logo"
                 width={160}
                 height={40}
@@ -229,8 +229,8 @@ export default function Home() {
                 }}
               />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#8180FF]/70 to-[#8180FF]/70 flex flex-col items-center justify-center p-6 md:p-12">
-              <h2 className="pixel-text text-[60px] md:text-[80px] text-[#E6FFA9] mb-6 text-center">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#8180FF]/40 to-[#8180FF]/40  flex flex-col items-center justify-center p-6 md:p-12">
+              <h2 className="pixel-text text-[80px] md:text-[100px] text-[#E6FFA9] text-center">
                 Academy
               </h2>
               <button className="bg-[#0F0F1E] text-white px-6 py-2 rounded-xl hover:bg-[#0F0F1E]/90">
@@ -304,7 +304,7 @@ export default function Home() {
               />
             </div>
             <div className="absolute inset-0 bg-gradient-to-r from-[#E6FFA9]/50 to-[#8180FF]/70 flex flex-col items-center justify-center p-6 md:p-12">
-              <h2 className="pixel-text text-[60px] md:text-[80px] text-[#E6FFA9] mb-6 text-center shadow-lg">
+              <h2 className="pixel-text text-[80px] md:text-[120px] text-[#E6FFA9] mb-6 text-center shadow-lg">
                 GROW
               </h2>
               <button className="bg-[#0F0F1E] text-white px-6 py-2 rounded-xl hover:bg-[#0F0F1E]/90">
