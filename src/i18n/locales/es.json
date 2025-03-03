@@ -1,0 +1,66 @@
+{
+  "common": {
+    "home": "Inicio",
+    "about": "Nosotros",
+    "howItWorks": "Cómo funciona",
+    "stories": "Historias",
+    "joinUsNav": "Únete",
+    "joinUs": "Únete a nosotros",
+    "sending": "Enviando...",
+    "success": "¡Gracias por suscribirte! Pronto recibirás noticias de Brotea.",
+    "error": "Error en el envío",
+    "errorMessage": "Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde o contáctanos a través de nuestras redes sociales.",
+    "close": "Cerrar"
+  },
+  "header": {
+    "title": "Conexiones que brotan, ideas que transforman.",
+    "subtitle": "Donde talento y oportunidades se encuentran para crear un futuro más inclusivo.",
+    "cta": "Únete a Brotea"
+  },
+  "academy": {
+    "discoverMore": "Descubre más"
+  },
+  "about": {
+    "title": "¿Qué es Brotea?",
+    "description": "Brotea nace para conectar talento y oportunidades, impulsando el desarrollo de estudiantes y emprendedores a través de la colaboración y la tecnología.",
+    "discoverHere": "Descúbrelo aquí"
+  },
+  "project": {
+    "title1": "¿Tienes un proyecto?",
+    "title2": "Brotea te ayuda.",
+    "discoverHow": "Descubre cómo aquí"
+  },
+  "grow": {
+    "discoverHow": "Descubre cómo puedes crecer aquí"
+  },
+  "join": {
+    "title": "Únete a Brotea",
+    "description": "Si eres estudiante, experto en tecnología o tienes herramientas que pueden aportar a la comunidad, queremos conocerte.",
+    "joinNow": "Únete ahora"
+  },
+  "newsletter": {
+    "title": "Suscríbete al Newsletter",
+    "description": "Recibe las últimas noticias, eventos y oportunidades de Brotea directamente en tu correo.",
+    "benefits": {
+      "first": "Mantente al día con nuestras novedades",
+      "second": "Accede a contenido exclusivo"
+    },
+    "form": {
+      "fullname": "Nombre y Apellidos",
+      "fullnamePlaceholder": "Ej. Carlos Rojas",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "Ej. correo@ejemplo.com",
+      "option": "¿Qué deseas hacer?",
+      "optionPlaceholder": "Selecciona...",
+      "options": {
+        "learn": "Quiero aprender con Brotea",
+        "mentor": "Quiero aportar como mentor en Brotea",
+        "donate": "Quiero donar herramientas a Brotea"
+      },
+      "subscribe": "Suscribirme ahora"
+    }
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados."
+  }
+}

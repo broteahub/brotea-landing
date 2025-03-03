@@ -1,0 +1,66 @@
+{
+  "common": {
+    "home": "Home",
+    "about": "About Us",
+    "howItWorks": "How It Works",
+    "stories": "Stories",
+    "joinUsNav": "Join Us",
+    "joinUs": "Join Us",
+    "sending": "Sending...",
+    "success": "Thank you for subscribing! You'll soon receive news from Brotea.",
+    "error": "Submission Error",
+    "errorMessage": "We're sorry, an error occurred while processing your request. Please try again later or contact us through our social media.",
+    "close": "Close"
+  },
+  "header": {
+    "title": "Connections that flourish, ideas that transform.",
+    "subtitle": "Where talent and opportunities meet to create a more inclusive future.",
+    "cta": "Join Brotea"
+  },
+  "academy": {
+    "discoverMore": "Discover More"
+  },
+  "about": {
+    "title": "What is Brotea?",
+    "description": "Brotea was born to connect talent and opportunities, driving the development of students and entrepreneurs through collaboration and technology.",
+    "discoverHere": "Discover Here"
+  },
+  "project": {
+    "title1": "Do you have a project?",
+    "title2": "Brotea helps you.",
+    "discoverHow": "Discover How Here"
+  },
+  "grow": {
+    "discoverHow": "Discover how you can grow here"
+  },
+  "join": {
+    "title": "Join Brotea",
+    "description": "If you're a student, technology expert, or have tools that can contribute to the community, we want to meet you.",
+    "joinNow": "Join Now"
+  },
+  "newsletter": {
+    "title": "Subscribe to Our Newsletter",
+    "description": "Receive the latest news, events, and opportunities from Brotea directly in your inbox.",
+    "benefits": {
+      "first": "Stay up to date with our latest news",
+      "second": "Access exclusive content"
+    },
+    "form": {
+      "fullname": "Full Name",
+      "fullnamePlaceholder": "E.g. John Smith",
+      "email": "Email Address",
+      "emailPlaceholder": "E.g. email@example.com",
+      "option": "What would you like to do?",
+      "optionPlaceholder": "Select...",
+      "options": {
+        "learn": "I want to learn with Brotea",
+        "mentor": "I want to contribute as a mentor at Brotea",
+        "donate": "I want to donate tools to Brotea"
+      },
+      "subscribe": "Subscribe Now"
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  }
+}

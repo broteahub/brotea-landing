@@ -1,34 +1,42 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { getTranslations, Language } from '@/i18n';
 
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    // Datos estáticos para la exportación estática
+    // Get locale from query parameter or default to Spanish
+    const searchParams = request.nextUrl.searchParams;
+    const locale = (searchParams.get('locale') || 'es') as Language;
+    
+    // Get translations for the requested locale
+    const translations = getTranslations(locale);
+    
+    // Create content data structure from translations
     const data = {
       header: {
-        title: "Conexiones que brotan, ideas que transforman.",
-        subtitle: "Donde talento y oportunidades se encuentran para crear un futuro más inclusivo.",
-        cta: { text: "Únete a Brotea", link: "https://t.me/broteaofficial" }
+        title: translations.header.title,
+        subtitle: translations.header.subtitle,
+        cta: { text: translations.header.cta, link: "https://t.me/broteaofficial" }
       },
       about: {
-        title: "¿Qué es Brotea?",
-        description: "Brotea nace para conectar talento y oportunidades, impulsando el desarrollo de estudiantes y emprendedores a través de la colaboración y la tecnología."
+        title: translations.about.title,
+        description: translations.about.description
       },
       recruitment: {
-        title: "Únete a Brotea",
-        description: "Si eres estudiante, experto en tecnología o tienes herramientas que pueden aportar a la comunidad, queremos conocerte."
+        title: translations.join.title,
+        description: translations.join.description
       }
     };
     
-    // Devolver los datos
+    // Return the data
     return NextResponse.json(data);
   } catch (error) {
-    console.error('Error al cargar el contenido:', error);
+    console.error('Error loading content:', error);
     return NextResponse.json(
       { 
-        error: 'Error al cargar el contenido',
-        message: error instanceof Error ? error.message : 'Error desconocido'
+        error: 'Error loading content',
+        message: error instanceof Error ? error.message : 'Unknown error'
       }, 
       { status: 500 }
     );

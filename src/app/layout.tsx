@@ -25,6 +25,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Note: We can't use useTranslation hook here because this is a Server Component
+  // The language will be updated client-side by the LanguageSwitcher component
   return (
     <html lang="es">
       <head>

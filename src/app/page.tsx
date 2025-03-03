@@ -6,6 +6,9 @@ import { motion } from "framer-motion";
 import { Menu, X, Instagram, MessageCircle, Copyright } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import LanguageSwitcher from "./components/LanguageSwitcher";
+import TranslatedText from "./components/TranslatedText";
+import { useTranslation } from "./hooks/useTranslation";
 
 // Estado para el formulario con Zustand
 const useNewsletterStore = create<{
@@ -57,36 +60,70 @@ export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [data, setData] = useState<BodyData | null>(null);
 
+  const { locale, isLoaded } = useTranslation();
+
+  // Function to fetch content
+  const fetchContent = async () => {
+    if (!isLoaded) return;
+    
+    try {
+      // Fetch content with the current locale
+      const res = await fetch(`/api/content?locale=${locale}`);
+      if (!res.ok) throw new Error("Error fetching content");
+      const jsonData = await res.json();
+      console.log('Fetched content for locale:', locale, jsonData);
+      setData(jsonData);
+    } catch (error) {
+      console.error("Error fetching content:", error);
+      // Fallback data
+      setData({
+        header: {
+          title: locale === 'en' ? 
+            "Connections that flourish, ideas that transform." : 
+            "Brotea conecta talento y oportunidades",
+          subtitle: locale === 'en' ?
+            "Where talent and opportunities meet to create a more inclusive future." :
+            "Impulsando el desarrollo de estudiantes y emprendedores a través de la colaboración y la tecnología.",
+          cta: { 
+            text: locale === 'en' ? "Join Brotea" : "Únete a Brotea", 
+            link: "https://t.me/broteaofficial" 
+          },
+        },
+        about: {
+          title: locale === 'en' ? "What is Brotea?" : "¿Qué es Brotea?",
+          description: locale === 'en' ?
+            "Brotea was born to connect talent and opportunities, driving the development of students and entrepreneurs through collaboration and technology." :
+            "Brotea nace para conectar talento y oportunidades, impulsando el desarrollo de estudiantes y emprendedores a través de la colaboración y la tecnología.",
+        },
+        recruitment: {
+          title: locale === 'en' ? "Join Brotea" : "Únete a Brotea",
+          description: locale === 'en' ?
+            "If you're a student, technology expert, or have tools that can contribute to the community, we want to meet you." :
+            "Si eres estudiante, experto en tecnología o tienes herramientas que pueden aportar a la comunidad, queremos conocerte.",
+        },
+      });
+    }
+  };
+
+  // Initial fetch when component mounts
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch("/api/content");
-        if (!res.ok) throw new Error("Error fetching content");
-        const jsonData = await res.json();
-        setData(jsonData);
-      } catch {
-        setData({
-          header: {
-            title: "Brotea conecta talento y oportunidades",
-            subtitle:
-              "Impulsando el desarrollo de estudiantes y emprendedores a través de la colaboración y la tecnología.",
-            cta: { text: "Únete a Brotea", link: "https://t.me/broteaofficial" },
-          },
-          about: {
-            title: "¿Qué es Brotea?",
-            description:
-              "Brotea nace para conectar talento y oportunidades, impulsando el desarrollo de estudiantes y emprendedores a través de la colaboración y la tecnología.",
-          },
-          recruitment: {
-            title: "Únete a Brotea",
-            description:
-              "Si eres estudiante, experto en tecnología o tienes herramientas que pueden aportar a la comunidad, queremos conocerte.",
-          },
-        });
-      }
+    fetchContent();
+  }, [locale, isLoaded]); // Re-fetch when locale changes
+
+  // Listen for locale changes
+  useEffect(() => {
+    // Re-fetch content when locale changes
+    const handleLocaleChange = () => {
+      fetchContent();
     };
-    fetchData();
-  }, []);
+
+    // Add event listener for the custom event
+    window.addEventListener('localeChange', handleLocaleChange);
+    
+    return () => {
+      window.removeEventListener('localeChange', handleLocaleChange);
+    };
+  }, [locale, isLoaded]); // Re-create the event listener when locale changes
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -132,15 +169,16 @@ export default function Home() {
                   onClick={() => scrollToSection(item.id)}
                   className="text-[#1A1F2C] hover:text-[#1A1F2C]/80 transition-colors"
                 >
-                  {item.label}
+                  <TranslatedText textKey={`common.${item.id === 'home' ? 'home' : item.id === 'about' ? 'about' : item.id === 'how' ? 'howItWorks' : item.id === 'stories' ? 'stories' : 'joinUsNav'}`} />
                 </button>
               ))}
               <button
                 onClick={() => scrollToSection("newsletter")}
                 className="bg-[#0F0F1E] text-white px-6 py-2 rounded-full hover:bg-[#0F0F1E]/90"
               >
-                Join us
+                <TranslatedText textKey="common.joinUs" />
               </button>
+              <LanguageSwitcher />
             </div>
           </div>
           {isMenuOpen && (
@@ -156,15 +194,18 @@ export default function Home() {
                     onClick={() => scrollToSection(item.id)}
                     className="text-white hover:text-white/80 text-left transition-colors"
                   >
-                    {item.label}
+                    <TranslatedText textKey={`common.${item.id === 'home' ? 'home' : item.id === 'about' ? 'about' : item.id === 'how' ? 'howItWorks' : item.id === 'stories' ? 'stories' : 'joinUsNav'}`} />
                   </button>
                 ))}
                 <button
                   onClick={() => scrollToSection("newsletter")}
                   className="bg-[#E6FFA9] text-black px-6 py-2 rounded-xl text-left transition-colors hover:bg-[#E6FFA9]/90"
                 >
-                  Join us
+                  <TranslatedText textKey="common.joinUs" />
                 </button>
+                <div className="pt-2">
+                  <LanguageSwitcher />
+                </div>
               </div>
             </motion.div>
           )}
@@ -175,6 +216,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 md:px-6 space-y-8">
           {/* Hero */}
           <motion.section
+            key={locale} // Add key to force re-render when locale changes
             id="home"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -234,7 +276,7 @@ export default function Home() {
                 Academy
               </h2>
               <button className="bg-[#0F0F1E] text-white px-6 py-2 rounded-xl hover:bg-[#0F0F1E]/90">
-                Descubre más
+                <TranslatedText textKey="academy.discoverMore" />
               </button>
             </div>
           </motion.section>
@@ -242,6 +284,7 @@ export default function Home() {
           {/* Info Cards */}
           <section id="about" className="md:grid md:grid-cols-2 md:gap-6 space-y-6 md:space-y-0 mb-6">
             <motion.div
+              key={`about-${locale}`} // Add key to force re-render when locale changes
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -257,7 +300,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="inline-block bg-[#E6FFA9] text-[#1A1F2C] px-6 py-3 rounded-full hover:scale-105"
                 >
-                  Descúbrelo aquí
+                  <TranslatedText textKey="about.discoverHere" />
                 </Link>
               </div>
             </motion.div>
@@ -269,9 +312,9 @@ export default function Home() {
             >
               <div className="relative z-10">
                 <h3 className="text-[24px] md:text-[32px] leading-tight font-medium mb-6 text-[#1A1F2C] font-pp-neue-machina">
-                  ¿Tienes un proyecto?
+                  <TranslatedText textKey="project.title1" />
                   <br />
-                  Brotea te ayuda.
+                  <TranslatedText textKey="project.title2" />
                 </h3>
                 <Link
                   href={brand.telegram_url}
@@ -279,7 +322,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="inline-block bg-[#E6FFA9] text-[#1A1F2C] px-6 py-3 rounded-full hover:scale-105"
                 >
-                  Descubre como aquí
+                  <TranslatedText textKey="project.discoverHow" />
                 </Link>
               </div>
             </motion.div>
@@ -308,7 +351,7 @@ export default function Home() {
                 GROW
               </h2>
               <button className="bg-[#0F0F1E] text-white px-6 py-2 rounded-xl hover:bg-[#0F0F1E]/90">
-                Descubre cómo puedes crecer aquí
+                <TranslatedText textKey="grow.discoverHow" />
               </button>
             </div>
           </motion.section>
@@ -377,6 +420,7 @@ export default function Home() {
 
           {/* Join */}
           <motion.section
+            key={`join-${locale}`} // Add key to force re-render when locale changes
             id="join"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -395,7 +439,7 @@ export default function Home() {
                 onClick={() => window.open(brand.twitter_url, "_blank")}
                 className="bg-[#E6FFA9] text-[#1A1F2C] px-6 py-3 rounded-full hover:scale-105"
               >
-                Únete ahora
+                <TranslatedText textKey="join.joinNow" />
               </button>
             </div>
           </motion.section>
@@ -411,23 +455,27 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div className="space-y-4">
                 <h3 className="text-3xl md:text-4xl font-bold font-pp-neue-machina text-[#E6FFA9]">
-                  Suscríbete al Newsletter
+                  <TranslatedText textKey="newsletter.title" />
                 </h3>
                 <p className="text-lg text-white/90 max-w-xl">
-                  Recibe las últimas noticias, eventos y oportunidades de Brotea directamente en tu correo.
+                  <TranslatedText textKey="newsletter.description" />
                 </p>
                 <div className="hidden md:block">
                   <div className="flex items-center space-x-4 mt-6">
                     <div className="w-12 h-12 rounded-full bg-[#E6FFA9] flex items-center justify-center">
                       <span className="text-[#0F0F1E] font-bold">1</span>
                     </div>
-                    <p className="text-white">Mantente al día con nuestras novedades</p>
+                    <p className="text-white">
+                      <TranslatedText textKey="newsletter.benefits.first" />
+                    </p>
                   </div>
                   <div className="flex items-center space-x-4 mt-4">
                     <div className="w-12 h-12 rounded-full bg-[#E6FFA9] flex items-center justify-center">
                       <span className="text-[#0F0F1E] font-bold">2</span>
                     </div>
-                    <p className="text-white">Accede a contenido exclusivo</p>
+                    <p className="text-white">
+                      <TranslatedText textKey="newsletter.benefits.second" />
+                    </p>
                   </div>
                 </div>
               </div>
@@ -471,12 +519,16 @@ function NewsletterForm() {
     }
   };
 
+  const { t } = useTranslation();
+  
   return (
     <>
       <div className="bg-[#1A1F2C] p-6 md:p-8 rounded-2xl shadow-xl w-full">
         <form onSubmit={handleSubmit} className="flex flex-col space-y-5">
           <div className="space-y-1.5">
-            <label className="block text-sm font-medium text-[#E6FFA9]">Nombre y Apellidos</label>
+            <label className="block text-sm font-medium text-[#E6FFA9]">
+              <TranslatedText textKey="newsletter.form.fullname" />
+            </label>
             <input
               className="w-full px-4 py-3 rounded-xl text-black focus:outline-none focus:ring-2 focus:ring-[#E6FFA9] transition-all text-sm md:text-base"
               type="text"
@@ -485,11 +537,13 @@ function NewsletterForm() {
               required
               value={fullname}
               onChange={(e) => setFullname(e.target.value)}
-              placeholder="Ej. Carlos Rojas"
+              placeholder={t("newsletter.form.fullnamePlaceholder")}
             />
           </div>
           <div className="space-y-1.5">
-            <label className="block text-sm font-medium text-[#E6FFA9]">Correo electrónico</label>
+            <label className="block text-sm font-medium text-[#E6FFA9]">
+              <TranslatedText textKey="newsletter.form.email" />
+            </label>
             <input
               className="w-full px-4 py-3 rounded-xl text-black focus:outline-none focus:ring-2 focus:ring-[#E6FFA9] transition-all text-sm md:text-base"
               type="email"
@@ -497,11 +551,13 @@ function NewsletterForm() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Ej. correo@ejemplo.com"
+              placeholder={t("newsletter.form.emailPlaceholder")}
             />
           </div>
           <div className="space-y-1.5">
-            <label className="block text-sm font-medium text-[#E6FFA9]">¿Qué deseas hacer?</label>
+            <label className="block text-sm font-medium text-[#E6FFA9]">
+              <TranslatedText textKey="newsletter.form.option" />
+            </label>
             <select
               className="w-full px-4 py-3 rounded-xl text-black focus:outline-none focus:ring-2 focus:ring-[#E6FFA9] transition-all text-sm md:text-base"
               name="option"
@@ -509,10 +565,10 @@ function NewsletterForm() {
               value={option}
               onChange={(e) => setOption(e.target.value)}
             >
-              <option value="">Selecciona...</option>
-              <option value="quiero aprender con brotea">Quiero aprender con Brotea</option>
-              <option value="quiero aportar como mentor en brotea">Quiero aportar como mentor en Brotea</option>
-              <option value="quiero donar herramientas a brotea">Quiero donar herramientas a Brotea</option>
+              <option value="">{t("newsletter.form.optionPlaceholder")}</option>
+              <option value="quiero aprender con brotea">{t("newsletter.form.options.learn")}</option>
+              <option value="quiero aportar como mentor en brotea">{t("newsletter.form.options.mentor")}</option>
+              <option value="quiero donar herramientas a brotea">{t("newsletter.form.options.donate")}</option>
             </select>
           </div>
           <button
@@ -527,15 +583,15 @@ function NewsletterForm() {
             {status === "loading" ? (
               <div className="flex items-center justify-center">
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                Enviando...
+                <TranslatedText textKey="common.sending" />
               </div>
             ) : (
-              "Suscribirme ahora"
+              <TranslatedText textKey="newsletter.form.subscribe" />
             )}
           </button>
           {status === "success" && (
             <div className="bg-green-500/20 border border-green-500 text-green-500 p-3 rounded-xl text-center text-sm">
-              ¡Gracias por suscribirte! Pronto recibirás noticias de Brotea.
+              <TranslatedText textKey="common.success" />
             </div>
           )}
         </form>
@@ -547,9 +603,11 @@ function NewsletterForm() {
             animate={{ opacity: 1, scale: 1 }}
             className="bg-white rounded-2xl p-6 max-w-md w-full"
           >
-            <h3 className="text-xl font-bold text-red-600 mb-2">Error en el envío</h3>
+            <h3 className="text-xl font-bold text-red-600 mb-2">
+              <TranslatedText textKey="common.error" />
+            </h3>
             <p className="text-gray-700 mb-4">
-              Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde o contáctanos a través de nuestras redes sociales.
+              <TranslatedText textKey="common.errorMessage" />
             </p>
             <div className="flex justify-end">
               <button
@@ -559,7 +617,7 @@ function NewsletterForm() {
                 }}
                 className="bg-[#0F0F1E] text-white px-4 py-2 rounded-xl hover:bg-[#0F0F1E]/80"
               >
-                Cerrar
+                <TranslatedText textKey="common.close" />
               </button>
             </div>
           </motion.div>
@@ -580,7 +638,7 @@ function Footer() {
           <div className="flex items-center space-x-1">
             <Copyright className="w-4 h-4 text-white" />
             <span className="font-pp-neue-machina text-sm md:text-base">
-              {new Date().getFullYear()} Brotea. Todos los derechos reservados.
+              {new Date().getFullYear()} Brotea. <TranslatedText textKey="footer.rights" />
             </span>
           </div>
         </div>
