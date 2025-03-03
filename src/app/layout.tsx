@@ -31,7 +31,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body className={`${spaceGrotesk.variable} ${pressStart2P.variable} bg-[#9b87f5]`}>
+      <body className={`${spaceGrotesk.variable} ${pressStart2P.variable} bg-[#8180FF]`}>
         {children}
       </body>
     </html>

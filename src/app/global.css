@@ -12,7 +12,7 @@
   
   body {
     font-family: var(--font-pp-neue-machina);
-    background-color: #9b87f5;
+    background-color: #8180FF;
   }
 }
 
@@ -47,7 +47,7 @@
   }
   
   .card-purple {
-    @apply bg-[#9b87f5] text-white;
+    @apply bg-[#8180FF] text-white;
   }
   
   .card-pink {

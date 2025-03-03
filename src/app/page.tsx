@@ -105,12 +105,18 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#9b87f5]">
+    <div className="flex flex-col min-h-screen bg-[#8180FF]">
       <nav className="p-6 relative z-50">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-center">
             <Link href="/" className="text-[32px] tracking-wider text-[#1A1F2C]">
-              <div className="pixel-text text-[28px] text-[#1A1F2C]">Brotea</div>
+              <Image 
+                src="/assets/images/BROTEA_LOGO-PRINCIPAL_NEGRO_500px.webp"
+                alt="Brotea Logo"
+                width={160}
+                height={40}
+                className="object-contain"
+              />
             </Link>
             <button
               className="md:hidden bg-[#0F0F1E] p-2 rounded-full"
@@ -183,24 +189,10 @@ export default function Home() {
                   {data?.header?.subtitle ||
                     "Donde talento y oportunidades se encuentran para crear un futuro más inclusivo."}
                 </p>
-                <div className="flex space-x-4">
-                  <button
-                    onClick={() => scrollToSection("join")}
-                    className="bg-[#0F0F1E] text-white px-6 py-3 rounded-full hover:scale-105"
-                  >
-                    {data?.header?.cta?.text || "Join us"}
-                  </button>
-                  <button
-                    onClick={() => scrollToSection("about")}
-                    className="bg-white text-[#1A1F2C] px-6 py-3 rounded-full hover:scale-105"
-                  >
-                    Descubre más
-                  </button>
-                </div>
               </div>
               <div className="relative h-64 md:h-80 mt-8 md:mt-0 overflow-hidden">
                 <Image
-                  src="/assets/images/conecta.webp"
+                  src="/assets/images/BROTEA_ILUSTRACION_2025_A.webp"
                   alt="Ilustración Brotea"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -211,7 +203,7 @@ export default function Home() {
             </div>
           </motion.section>
 
-          {/* Academy */}
+          {/* Academy 8180FF */}
           <motion.section
             id="academy"
             initial={{ opacity: 0 }}
@@ -237,7 +229,7 @@ export default function Home() {
                 }}
               />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#9b87f5]/70 to-[#9b87f5]/70 flex flex-col items-center justify-center p-6 md:p-12">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#8180FF]/70 to-[#8180FF]/70 flex flex-col items-center justify-center p-6 md:p-12">
               <h2 className="pixel-text text-[60px] md:text-[80px] text-[#E6FFA9] mb-6 text-center">
                 Academy
               </h2>
@@ -311,7 +303,7 @@ export default function Home() {
                 priority
               />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#E6FFA9]/50 to-[#9b87f5]/70 flex flex-col items-center justify-center p-6 md:p-12">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#E6FFA9]/50 to-[#8180FF]/70 flex flex-col items-center justify-center p-6 md:p-12">
               <h2 className="pixel-text text-[60px] md:text-[80px] text-[#E6FFA9] mb-6 text-center shadow-lg">
                 GROW
               </h2>
@@ -357,7 +349,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="bg-[#0F0F1E] rounded-[24px] md:rounded-[32px] p-6 aspect-square flex items-center justify-center"
             >
-              <span className="pixel-text text-[#FF8BA7] text-xl md:text-2xl">lead</span>
+              <span className="pixel-text text-[#FF8BA7] text-3xl md:text-5xl lg:text-8xl">lead</span>
             </motion.div>
             <motion.div
               initial={{ opacity: 0 }}
@@ -365,7 +357,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="bg-[#0F0F1E] rounded-[24px] md:rounded-[32px] p-6 aspect-square flex items-center justify-center"
             >
-              <span className="pixel-text text-[#E6FFA9] text-xl md:text-2xl">learn</span>
+              <span className="pixel-text text-[#E6FFA9] text-3xl md:text-5xl lg:text-8xl">learn</span>
             </motion.div>
             <motion.div
               initial={{ opacity: 0 }}
