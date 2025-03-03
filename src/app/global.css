@@ -4,8 +4,8 @@
 
 @layer base {
   :root {
-    --font-space-grotesk: 'Space Grotesk', sans-serif;
-    --font-press-start: 'Press Start 2P', cursive;
+    --font-space-grotesk: 'PP Neue Machina', sans-serif;
+    --font-press-start: 'PP Neue Machina', cursive;
     --font-pp-neue-machina: 'PP Neue Machina', sans-serif;
     --font-biform-pixel: 'Biform Pixel', monospace;
   }
@@ -39,7 +39,7 @@
   }
 
   .button-neon {
-    @apply bg-[#CAFF00] text-[#1A1F2C] px-8 py-3 rounded-full text-[15px] font-medium transition-all hover:bg-[#CAFF00]/90;
+    @apply bg-[#E6FFA9] text-[#1A1F2C] px-8 py-3 rounded-full text-[15px] font-medium transition-all hover:bg-[#E6FFA9]/90;
   }
   
   .card {

@@ -155,7 +155,7 @@ export default function Home() {
                 ))}
                 <button
                   onClick={() => scrollToSection("newsletter")}
-                  className="bg-[#CAFF00] text-black px-6 py-2 rounded-xl text-left transition-colors hover:bg-[#CAFF00]/90"
+                  className="bg-[#E6FFA9] text-black px-6 py-2 rounded-xl text-left transition-colors hover:bg-[#E6FFA9]/90"
                 >
                   Join us
                 </button>
@@ -172,7 +172,7 @@ export default function Home() {
             id="home"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-[#CAFF00] rounded-[24px] md:rounded-[32px] p-6 md:p-12 relative overflow-hidden"
+            className="bg-[#E6FFA9] rounded-[24px] md:rounded-[32px] p-6 md:p-12 relative overflow-hidden"
           >
             <div className="md:grid md:grid-cols-2 md:gap-12">
               <div className="z-10 relative">
@@ -238,7 +238,7 @@ export default function Home() {
               />
             </div>
             <div className="absolute inset-0 bg-gradient-to-r from-[#9b87f5]/70 to-[#9b87f5]/70 flex flex-col items-center justify-center p-6 md:p-12">
-              <h2 className="pixel-text text-[60px] md:text-[80px] text-[#CAFF00] mb-6 text-center">
+              <h2 className="pixel-text text-[60px] md:text-[80px] text-[#E6FFA9] mb-6 text-center">
                 Academy
               </h2>
               <button className="bg-[#0F0F1E] text-white px-6 py-2 rounded-xl hover:bg-[#0F0F1E]/90">
@@ -263,7 +263,7 @@ export default function Home() {
                   href={brand.instagram_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block bg-[#CAFF00] text-[#1A1F2C] px-6 py-3 rounded-full hover:scale-105"
+                  className="inline-block bg-[#E6FFA9] text-[#1A1F2C] px-6 py-3 rounded-full hover:scale-105"
                 >
                   Descúbrelo aquí
                 </Link>
@@ -285,7 +285,7 @@ export default function Home() {
                   href={brand.telegram_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block bg-[#CAFF00] text-[#1A1F2C] px-6 py-3 rounded-full hover:scale-105"
+                  className="inline-block bg-[#E6FFA9] text-[#1A1F2C] px-6 py-3 rounded-full hover:scale-105"
                 >
                   Descubre como aquí
                 </Link>
@@ -311,8 +311,8 @@ export default function Home() {
                 priority
               />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#CAFF00]/50 to-[#9b87f5]/70 flex flex-col items-center justify-center p-6 md:p-12">
-              <h2 className="pixel-text text-[60px] md:text-[80px] text-[#CAFF00] mb-6 text-center shadow-lg">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#E6FFA9]/50 to-[#9b87f5]/70 flex flex-col items-center justify-center p-6 md:p-12">
+              <h2 className="pixel-text text-[60px] md:text-[80px] text-[#E6FFA9] mb-6 text-center shadow-lg">
                 GROW
               </h2>
               <button className="bg-[#0F0F1E] text-white px-6 py-2 rounded-xl hover:bg-[#0F0F1E]/90">
@@ -365,7 +365,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="bg-[#0F0F1E] rounded-[24px] md:rounded-[32px] p-6 aspect-square flex items-center justify-center"
             >
-              <span className="pixel-text text-[#CAFF00] text-xl md:text-2xl">learn</span>
+              <span className="pixel-text text-[#E6FFA9] text-xl md:text-2xl">learn</span>
             </motion.div>
             <motion.div
               initial={{ opacity: 0 }}
@@ -401,7 +401,7 @@ export default function Home() {
               </p>
               <button
                 onClick={() => window.open(brand.twitter_url, "_blank")}
-                className="bg-[#CAFF00] text-[#1A1F2C] px-6 py-3 rounded-full hover:scale-105"
+                className="bg-[#E6FFA9] text-[#1A1F2C] px-6 py-3 rounded-full hover:scale-105"
               >
                 Únete ahora
               </button>
@@ -418,7 +418,7 @@ export default function Home() {
           >
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div className="space-y-4">
-                <h3 className="text-3xl md:text-4xl font-bold font-pp-neue-machina text-[#CAFF00]">
+                <h3 className="text-3xl md:text-4xl font-bold font-pp-neue-machina text-[#E6FFA9]">
                   Suscríbete al Newsletter
                 </h3>
                 <p className="text-lg text-white/90 max-w-xl">
@@ -426,13 +426,13 @@ export default function Home() {
                 </p>
                 <div className="hidden md:block">
                   <div className="flex items-center space-x-4 mt-6">
-                    <div className="w-12 h-12 rounded-full bg-[#CAFF00] flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-[#E6FFA9] flex items-center justify-center">
                       <span className="text-[#0F0F1E] font-bold">1</span>
                     </div>
                     <p className="text-white">Mantente al día con nuestras novedades</p>
                   </div>
                   <div className="flex items-center space-x-4 mt-4">
-                    <div className="w-12 h-12 rounded-full bg-[#CAFF00] flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-[#E6FFA9] flex items-center justify-center">
                       <span className="text-[#0F0F1E] font-bold">2</span>
                     </div>
                     <p className="text-white">Accede a contenido exclusivo</p>
@@ -484,9 +484,9 @@ function NewsletterForm() {
       <div className="bg-[#1A1F2C] p-6 md:p-8 rounded-2xl shadow-xl w-full">
         <form onSubmit={handleSubmit} className="flex flex-col space-y-5">
           <div className="space-y-1.5">
-            <label className="block text-sm font-medium text-[#CAFF00]">Nombre y Apellidos</label>
+            <label className="block text-sm font-medium text-[#E6FFA9]">Nombre y Apellidos</label>
             <input
-              className="w-full px-4 py-3 rounded-xl text-black focus:outline-none focus:ring-2 focus:ring-[#CAFF00] transition-all text-sm md:text-base"
+              className="w-full px-4 py-3 rounded-xl text-black focus:outline-none focus:ring-2 focus:ring-[#E6FFA9] transition-all text-sm md:text-base"
               type="text"
               name="fullname"
               minLength={5}
@@ -497,9 +497,9 @@ function NewsletterForm() {
             />
           </div>
           <div className="space-y-1.5">
-            <label className="block text-sm font-medium text-[#CAFF00]">Correo electrónico</label>
+            <label className="block text-sm font-medium text-[#E6FFA9]">Correo electrónico</label>
             <input
-              className="w-full px-4 py-3 rounded-xl text-black focus:outline-none focus:ring-2 focus:ring-[#CAFF00] transition-all text-sm md:text-base"
+              className="w-full px-4 py-3 rounded-xl text-black focus:outline-none focus:ring-2 focus:ring-[#E6FFA9] transition-all text-sm md:text-base"
               type="email"
               name="email"
               required
@@ -509,9 +509,9 @@ function NewsletterForm() {
             />
           </div>
           <div className="space-y-1.5">
-            <label className="block text-sm font-medium text-[#CAFF00]">¿Qué deseas hacer?</label>
+            <label className="block text-sm font-medium text-[#E6FFA9]">¿Qué deseas hacer?</label>
             <select
-              className="w-full px-4 py-3 rounded-xl text-black focus:outline-none focus:ring-2 focus:ring-[#CAFF00] transition-all text-sm md:text-base"
+              className="w-full px-4 py-3 rounded-xl text-black focus:outline-none focus:ring-2 focus:ring-[#E6FFA9] transition-all text-sm md:text-base"
               name="option"
               required
               value={option}
@@ -528,7 +528,7 @@ function NewsletterForm() {
             className={`px-6 py-3 rounded-xl font-semibold text-base md:text-lg transition-all mt-2 ${
               status === "loading"
                 ? "bg-gray-400 text-white cursor-not-allowed"
-                : "bg-[#CAFF00] text-[#1A1F2C] hover:scale-105 hover:shadow-lg"
+                : "bg-[#E6FFA9] text-[#1A1F2C] hover:scale-105 hover:shadow-lg"
             }`}
             disabled={status === "loading"}
           >
@@ -593,13 +593,13 @@ function Footer() {
           </div>
         </div>
         <div className="flex space-x-6">
-          <a href={brand.telegram_url} target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="text-white hover:text-[#CAFF00] transition-colors">
+          <a href={brand.telegram_url} target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="text-white hover:text-[#E6FFA9] transition-colors">
             <MessageCircle className="w-6 h-6" />
           </a>
-          <a href={brand.twitter_url} target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="text-white hover:text-[#CAFF00] transition-colors">
+          <a href={brand.twitter_url} target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="text-white hover:text-[#E6FFA9] transition-colors">
             <X className="w-6 h-6" />
           </a>
-          <a href={brand.instagram_url} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-white hover:text-[#CAFF00] transition-colors">
+          <a href={brand.instagram_url} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-white hover:text-[#E6FFA9] transition-colors">
             <Instagram className="w-6 h-6" />
           </a>
         </div>

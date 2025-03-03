@@ -57,7 +57,7 @@ async function sendNewsletter(formData: FormData) {
         <table cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
           <tr>
             <td style="padding: 20px 0; text-align: center; background-color: #7E69AB;">
-              <h1 style="color: #CAFF00; margin: 0;">Welcome to Brotea!</h1>
+              <h1 style="color: #E6FFA9; margin: 0;">Welcome to Brotea!</h1>
             </td>
           </tr>
           <tr>
@@ -67,7 +67,7 @@ async function sendNewsletter(formData: FormData) {
               <p>You selected: <strong>${option}</strong></p>
               <p>You'll soon receive news, events, and opportunities from Brotea directly in your inbox.</p>
               <p style="text-align: center; margin: 30px 0;">
-                <a href="https://brotea.xyz" style="display: inline-block; background-color: #CAFF00; color: #1A1F2C; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Visit Brotea</a>
+                <a href="https://brotea.xyz" style="display: inline-block; background-color: #E6FFA9; color: #1A1F2C; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Visit Brotea</a>
               </p>
               <p style="color: #777; margin-top: 40px; font-size: 14px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
                 &copy; ${new Date().getFullYear()} Brotea. All rights reserved.<br>
