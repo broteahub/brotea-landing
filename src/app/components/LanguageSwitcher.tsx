@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from 'react';
 import { languages, Language } from '@/i18n';
 import { useTranslation } from '@/app/hooks/useTranslation';
 

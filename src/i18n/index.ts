@@ -19,15 +19,16 @@ const locales: Record<Language, Translations> = {
 };
 
 // Helper function to get nested object properties by string path
-export const getNestedValue = (obj: any, path: string): string => {
+export const getNestedValue = (obj: Record<string, unknown>, path: string): string => {
   const keys = path.split('.');
-  let result = obj;
+  let result: unknown = obj;
   
   for (const key of keys) {
-    if (result === undefined || result === null) {
+    if (result === undefined || result === null || typeof result !== 'object') {
       return path; // Return the key path if we can't find the value
     }
-    result = result[key];
+    // Use type assertion with a specific type instead of any
+    result = (result as Record<string, unknown>)[key];
   }
   
   return typeof result === 'string' ? result : path;

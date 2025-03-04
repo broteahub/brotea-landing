@@ -108,7 +108,7 @@ export default function Home() {
   // Initial fetch when component mounts
   useEffect(() => {
     fetchContent();
-  }, [locale, isLoaded]); // Re-fetch when locale changes
+  }, [locale, isLoaded, fetchContent]); // Re-fetch when locale changes
 
   // Listen for locale changes
   useEffect(() => {
@@ -123,7 +123,7 @@ export default function Home() {
     return () => {
       window.removeEventListener('localeChange', handleLocaleChange);
     };
-  }, [locale, isLoaded]); // Re-create the event listener when locale changes
+  }, [locale, isLoaded, fetchContent]); // Re-create the event listener when locale changes
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
