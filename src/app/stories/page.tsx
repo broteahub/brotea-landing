@@ -136,6 +136,47 @@ export default function Stories() {
             </div>
           </motion.section>
 
+          {/* Cristhian's Story */}
+          <motion.section
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="bg-white rounded-[24px] md:rounded-[32px] p-6 md:p-12 relative overflow-hidden"
+          >
+            <div className="md:grid md:grid-cols-3 md:gap-8">
+              <div className="col-span-1 mb-6 md:mb-0">
+                <div className="relative h-64 md:h-full w-full rounded-2xl overflow-hidden">
+                  <Image
+                    src="/assets/images/stories/cristhian-ethdenver-story.jpeg"
+                    alt="Cristhian's Story"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+              <div className="col-span-2">
+                <h2 className="text-[28px] md:text-[36px] font-medium text-[#1A1F2C] mb-4 font-pp-neue-machina">
+                  <TranslatedText textKey="stories.cristhian.title" />
+                </h2>
+                <div className="prose prose-lg text-[#1A1F2C] max-w-none">
+                  <p>
+                    <TranslatedText textKey="stories.cristhian.content1" />
+                  </p>
+                  <p>
+                    <TranslatedText textKey="stories.cristhian.content2" />
+                  </p>
+                  <p>
+                    <TranslatedText textKey="stories.cristhian.content3" />
+                  </p>
+                  <p>
+                    <TranslatedText textKey="stories.cristhian.content4" />
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.section>
+
           {/* José's Story */}
           <motion.section
             initial={{ opacity: 0 }}
