@@ -311,7 +311,7 @@ export default function Home() {
               />
             </div>
             <div className="absolute inset-0 bg-gradient-to-r from-[#8180FF]/40 to-[#8180FF]/40  flex flex-col items-center justify-center p-6 md:p-12">
-              <h2 className="pixel-text text-[80px] md:text-[100px] text-[#E6FFA9] text-center">
+              <h2 className="pixel-text text-[60px] md:text-[100px] text-[#E6FFA9] text-center">
                 Academy
               </h2>
               <button className="bg-[#0F0F1E] text-white px-6 py-2 rounded-xl hover:bg-[#0F0F1E]/90">
