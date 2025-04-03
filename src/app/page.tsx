@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect, FormEvent, useCallback } from "react";
 import { create } from "zustand";
 import { motion } from "framer-motion";
 import { Menu, X, Instagram, MessageCircle, Copyright } from "lucide-react";
@@ -62,8 +62,8 @@ export default function Home() {
 
   const { locale, isLoaded } = useTranslation();
 
-  // Function to fetch content
-  const fetchContent = async () => {
+  // Function to fetch content wrapped in useCallback to prevent dependency issues
+  const fetchContent = useCallback(async () => {
     if (!isLoaded) return;
     
     try {
@@ -103,7 +103,7 @@ export default function Home() {
         },
       });
     }
-  };
+  }, [locale, isLoaded]);
 
   // Initial fetch when component mounts
   useEffect(() => {
@@ -134,11 +134,11 @@ export default function Home() {
   };
 
   const navItems = [
-    { id: "home", label: "Home" },
-    { id: "about", label: "About us" },
-    { id: "how", label: "How it works" },
-    { id: "stories", label: "Stories" },
-    { id: "join", label: "Join us" },
+    { id: "home", label: "Home", href: "/" },
+    { id: "about", label: "About us", href: "/#about" },
+    { id: "how", label: "How it works", href: "/#how" },
+    { id: "stories", label: "Stories", href: "/stories" },
+    { id: "join", label: "Join us", href: "/#join" },
   ];
 
   return (
@@ -163,15 +163,34 @@ export default function Home() {
               <Menu className="w-6 h-6 text-white" />
             </button>
             <div className="hidden md:flex items-center space-x-8">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="text-[#1A1F2C] hover:text-[#1A1F2C]/80 transition-colors"
-                >
-                  <TranslatedText textKey={`common.${item.id === 'home' ? 'home' : item.id === 'about' ? 'about' : item.id === 'how' ? 'howItWorks' : item.id === 'stories' ? 'stories' : 'joinUsNav'}`} />
-                </button>
-              ))}
+              {navItems.map((item) => {
+                // Helper function to get the translation key
+                const getTranslationKey = (id: string) => {
+                  if (id === "home") return "common.home";
+                  if (id === "about") return "common.about";
+                  if (id === "how") return "common.howItWorks";
+                  if (id === "stories") return "common.stories";
+                  return "common.joinUsNav";
+                };
+                
+                return item.id === "stories" ? (
+                  <Link
+                    key={item.id}
+                    href={item.href}
+                    className="text-[#1A1F2C] hover:text-[#1A1F2C]/80 transition-colors"
+                  >
+                    <TranslatedText textKey={getTranslationKey(item.id)} />
+                  </Link>
+                ) : (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className="text-[#1A1F2C] hover:text-[#1A1F2C]/80 transition-colors"
+                  >
+                    <TranslatedText textKey={getTranslationKey(item.id)} />
+                  </button>
+                );
+              })}
               <button
                 onClick={() => scrollToSection("newsletter")}
                 className="bg-[#0F0F1E] text-white px-6 py-2 rounded-full hover:bg-[#0F0F1E]/90"
@@ -188,15 +207,35 @@ export default function Home() {
               className="md:hidden absolute left-0 right-0 top-full mt-2 p-4 bg-[#0F0F1E] rounded-xl mx-4"
             >
               <div className="flex flex-col space-y-4">
-                {navItems.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.id)}
-                    className="text-white hover:text-white/80 text-left transition-colors"
-                  >
-                    <TranslatedText textKey={`common.${item.id === 'home' ? 'home' : item.id === 'about' ? 'about' : item.id === 'how' ? 'howItWorks' : item.id === 'stories' ? 'stories' : 'joinUsNav'}`} />
-                  </button>
-                ))}
+                {navItems.map((item) => {
+                  // Helper function to get the translation key
+                  const getTranslationKey = (id: string) => {
+                    if (id === "home") return "common.home";
+                    if (id === "about") return "common.about";
+                    if (id === "how") return "common.howItWorks";
+                    if (id === "stories") return "common.stories";
+                    return "common.joinUsNav";
+                  };
+                  
+                  return item.id === "stories" ? (
+                    <Link
+                      key={item.id}
+                      href={item.href}
+                      className="text-white hover:text-white/80 text-left transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <TranslatedText textKey={getTranslationKey(item.id)} />
+                    </Link>
+                  ) : (
+                    <button
+                      key={item.id}
+                      onClick={() => scrollToSection(item.id)}
+                      className="text-white hover:text-white/80 text-left transition-colors"
+                    >
+                      <TranslatedText textKey={getTranslationKey(item.id)} />
+                    </button>
+                  );
+                })}
                 <button
                   onClick={() => scrollToSection("newsletter")}
                   className="bg-[#E6FFA9] text-black px-6 py-2 rounded-xl text-left transition-colors hover:bg-[#E6FFA9]/90"
@@ -272,7 +311,7 @@ export default function Home() {
               />
             </div>
             <div className="absolute inset-0 bg-gradient-to-r from-[#8180FF]/40 to-[#8180FF]/40  flex flex-col items-center justify-center p-6 md:p-12">
-              <h2 className="pixel-text text-[80px] md:text-[100px] text-[#E6FFA9] text-center">
+              <h2 className="pixel-text text-[60px] md:text-[100px] text-[#E6FFA9] text-center">
                 Academy
               </h2>
               <button className="bg-[#0F0F1E] text-white px-6 py-2 rounded-xl hover:bg-[#0F0F1E]/90">

@@ -12,8 +12,33 @@
     "errorMessage": "We're sorry, an error occurred while processing your request. Please try again later or contact us through our social media.",
     "close": "Close"
   },
+  "stories": {
+    "pageTitle": "Stories that inspire",
+    "pageSubtitle": "Discover how Brotea has transformed the lives of our community members.",
+    "jose": {
+      "title": "José's Journey",
+      "content1": "At 25, José had always been curious about technology but never thought programming was something he could learn. With a background in marketing, he felt that coding was a complex world reserved for those with technical degrees or \"natural talent.\"",
+      "content2": "\"I always saw programmers as these genius-level people who had been coding since they were kids,\" José recalls. \"I thought I had missed my chance.\"",
+      "content3": "That changed when José discovered Brotea. Through our community-focused approach and step-by-step learning methodology, José realized that programming wasn't about innate ability—it was about persistence, practice, and having the right guidance.",
+      "content4": "\"What made the difference with Brotea was how they broke down complex concepts into manageable pieces. The mentors were always there to help when I got stuck, and being part of a community of learners made me feel like I wasn't alone in this journey.\"",
+      "content5": "Six months after joining Brotea, José built his first web application—a tool that helped small businesses in his community manage their social media presence. Today, he works as a junior developer and continues to grow his skills through Brotea's advanced courses.",
+      "content6": "\"Brotea showed me that programming isn't just possible—it's accessible to anyone willing to put in the work. The most important thing I learned wasn't a programming language, but the confidence that I can learn anything with the right approach and support.\""
+    },
+    "cristhian": {
+      "title": "Cristhian's Experience at ETHDenver2025",
+      "image": "/assets/images/stories/cristhian-ethdenver-story.jpeg",
+      "content1": "Hello! I'm Cristhian, founder of Brotea. I'm excited to share that we were finalists at ETHDenver2025 alongside Frutero Club and Dabl Club. What an incredible experience!",
+      "content2": "I want to take this opportunity to especially thank Julio, an exceptional developer who has been fundamental in our journey. He's the one who inspired me to continue hacking and exploring new possibilities.",
+      "content3": "His tireless work ethic, his ability to find solutions to any challenge, and his constant dedication make him a true role model for all of us.",
+      "content4": "The moments shared with him and with Germán during this event were not only productive but also tremendously fun. This combination of passion, talent, and camaraderie is what makes projects like Brotea come to life and reach new heights."
+    },
+    "cta": {
+      "title": "Start Your Own Story",
+      "subtitle": "Join Brotea today and discover how accessible programming can be with the right community and guidance."
+    }
+  },
   "header": {
-    "title": "Connections that flourish, ideas that transform.",
+    "title": "Connections With Jose that flourish, ideas that transform.",
     "subtitle": "Where talent and opportunities meet to create a more inclusive future.",
     "cta": "Join Brotea"
   },
