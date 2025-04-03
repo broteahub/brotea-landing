@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect, FormEvent, useCallback } from "react";
 import { create } from "zustand";
 import { motion } from "framer-motion";
 import { Menu, X, Instagram, MessageCircle, Copyright } from "lucide-react";
@@ -62,8 +62,8 @@ export default function Home() {
 
   const { locale, isLoaded } = useTranslation();
 
-  // Function to fetch content
-  const fetchContent = async () => {
+  // Function to fetch content wrapped in useCallback to prevent dependency issues
+  const fetchContent = useCallback(async () => {
     if (!isLoaded) return;
     
     try {
@@ -103,7 +103,7 @@ export default function Home() {
         },
       });
     }
-  };
+  }, [locale, isLoaded]);
 
   // Initial fetch when component mounts
   useEffect(() => {

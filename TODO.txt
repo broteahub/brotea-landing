@@ -1,0 +1,5 @@
+ADD LOCAL MODEL TO SERVER
+- Research use cases
+
+1. Crear un prompt master con la estructura del proyecto
+    - Que tenga referencias exactas a los ficheros

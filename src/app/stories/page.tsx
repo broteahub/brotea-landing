@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import LanguageSwitcher from "../components/LanguageSwitcher";
@@ -11,8 +11,12 @@ import { useTranslation } from "../hooks/useTranslation";
 
 export default function Stories() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { locale, isLoaded } = useTranslation();
+  // We don't need to destructure anything from useTranslation for this component
+  useTranslation();
 
+  // This function is used in the JSX below but we're not actually using it
+  // Keeping it commented for reference
+  /*
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -20,6 +24,7 @@ export default function Stories() {
       setIsMenuOpen(false);
     }
   };
+  */
 
   const navItems = [
     { id: "home", label: "Home", href: "/" },
