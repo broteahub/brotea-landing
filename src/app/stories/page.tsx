@@ -25,7 +25,13 @@ export default function Stories() {
     }
   };
   */
-
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+      setIsMenuOpen(false);
+    }
+  };
   const navItems = [
     { id: "home", label: "Home", href: "/" },
     { id: "services", label: "Services", href: "https://global.brotea.xyz" },

@@ -106,6 +106,18 @@ export default function Home() {
             "If you're a student, technology expert, or have tools that can contribute to the community, we want to meet you." :
             "Si eres estudiante, experto en tecnología o tienes herramientas que pueden aportar a la comunidad, queremos conocerte.",
         },
+        lisbonClub: {
+          title: locale === 'en' ? "Lisbon Club" : "Club de Lisboa",
+          description: locale === 'en' ?
+            "Join our local community in Lisbon to connect with other members and participate in exclusive events." :
+            "Únete a nuestra comunidad local en Lisboa para conectar con otros miembros y participar en eventos exclusivos."
+        },
+        globalCommunity: {
+          title: locale === 'en' ? "Brotea Global Community" : "Comunidad Global de Brotea",
+          description: locale === 'en' ?
+            "Be part of our global network of students, mentors, and technology experts." :
+            "Forma parte de nuestra red global de estudiantes, mentores y expertos en tecnología."
+        },
       });
     }
   }, [locale, isLoaded]);
