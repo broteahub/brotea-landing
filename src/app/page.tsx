@@ -33,6 +33,8 @@ const useNewsletterStore = create<{
 interface BodyData {
   header: { title: string; subtitle: string; cta: { text: string; link: string } };
   about: { title: string; description: string };
+  lisbonClub: { title: string; description: string };
+  globalCommunity: { title: string; description: string };
   recruitment: { title: string; description: string };
 }
 
@@ -53,6 +55,9 @@ const brand = {
   telegram_url: "https://t.me/broteaofficial",
   twitter_url: "https://x.com/broteaofficial",
   instagram_url: "https://www.instagram.com/broteaofficial",
+  linktree: "https://linktr.ee/brotea",
+  wa_global_community: "https://chat.whatsapp.com/CoxaYEaR7rxJL5jVWxCaOO",
+  wa_lisbon_club: "https://chat.whatsapp.com/Cm6G2GDfCWi1Vdrha0ZLuu",
   support_email: "hello@brotea.xyz",
 };
 
@@ -135,10 +140,8 @@ export default function Home() {
 
   const navItems = [
     { id: "home", label: "Home" },
-    { id: "about", label: "About us" },
-    { id: "how", label: "How it works" },
+    { id: "services", label: "Services" },
     { id: "stories", label: "Stories" },
-    { id: "join", label: "Join us" },
   ];
 
   return (
@@ -163,21 +166,33 @@ export default function Home() {
               <Menu className="w-6 h-6 text-white" />
             </button>
             <div className="hidden md:flex items-center space-x-8">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
+                <Link href="/stories" className="text-[32px] tracking-wider text-[#1A1F2C]">
+                 Stories
+                </Link>
+                <a
+                  href="https://global.brotea.xyz"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-[#1A1F2C] hover:text-[#1A1F2C]/80 transition-colors"
                 >
-                  <TranslatedText textKey={`common.${item.id === 'home' ? 'home' : item.id === 'about' ? 'about' : item.id === 'how' ? 'howItWorks' : item.id === 'stories' ? 'stories' : 'joinUsNav'}`} />
-                </button>
-              ))}
-              <button
-                onClick={() => scrollToSection("newsletter")}
+                  Services
+                </a>
+                <a
+                  href="https://meredigroup.brotea.xyz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#1A1F2C] hover:text-[#1A1F2C]/80 transition-colors"
+                >
+                  Core Partner
+                </a>
+              <a
+                href="https://linktr.ee/brotea"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-[#0F0F1E] text-white px-6 py-2 rounded-full hover:bg-[#0F0F1E]/90"
               >
                 <TranslatedText textKey="common.joinUs" />
-              </button>
+              </a>
               <LanguageSwitcher />
             </div>
           </div>
@@ -189,20 +204,32 @@ export default function Home() {
             >
               <div className="flex flex-col space-y-4">
                 {navItems.map((item) => (
-                  <button
+                  <a
                     key={item.id}
-                    onClick={() => scrollToSection(item.id)}
+                    href="https://linktr.ee/brotea"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-white hover:text-white/80 text-left transition-colors"
                   >
-                    <TranslatedText textKey={`common.${item.id === 'home' ? 'home' : item.id === 'about' ? 'about' : item.id === 'how' ? 'howItWorks' : item.id === 'stories' ? 'stories' : 'joinUsNav'}`} />
-                  </button>
+                    <TranslatedText textKey={`common.${item.id === 'home' ? 'home' : item.id === 'services' ? 'services' : item.id === 'stories' ? 'stories' : 'joinUsNav'}`} />
+                  </a>
                 ))}
-                <button
-                  onClick={() => scrollToSection("newsletter")}
+                <a
+                  href="https://global.brotea.xyz/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-white/80 text-left transition-colors"
+                >
+                  Global
+                </a>
+                <a
+                  href="https://linktr.ee/brotea"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="bg-[#E6FFA9] text-black px-6 py-2 rounded-xl text-left transition-colors hover:bg-[#E6FFA9]/90"
                 >
                   <TranslatedText textKey="common.joinUs" />
-                </button>
+                </a>
                 <div className="pt-2">
                   <LanguageSwitcher />
                 </div>
@@ -292,10 +319,10 @@ export default function Home() {
             >
               <div className="relative z-10">
                 <h3 className="text-[24px] md:text-[32px] leading-tight font-medium mb-6 text-[#1A1F2C] font-pp-neue-machina">
-                  {data?.about?.title || "¿Qué es Brotea?"}
+                  {data?.globalCommunity?.title || "Brotea Global Community"}
                 </h3>
                 <Link
-                  href={brand.instagram_url}
+                  href={brand.wa_global_community}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block bg-[#E6FFA9] text-[#1A1F2C] px-6 py-3 rounded-full hover:scale-105"
@@ -311,13 +338,11 @@ export default function Home() {
               className="bg-[#FF8BA7] rounded-[24px] md:rounded-[32px] p-6 md:p-12 relative overflow-hidden"
             >
               <div className="relative z-10">
-                <h3 className="text-[24px] md:text-[32px] leading-tight font-medium mb-6 text-[#1A1F2C] font-pp-neue-machina">
-                  <TranslatedText textKey="project.title1" />
-                  <br />
-                  <TranslatedText textKey="project.title2" />
+              <h3 className="text-[24px] md:text-[32px] leading-tight font-medium mb-6 text-[#1A1F2C] font-pp-neue-machina">
+                  {data?.lisbonClub?.title || "Lisbon Club"}
                 </h3>
                 <Link
-                  href={brand.telegram_url}
+                  href={brand.wa_lisbon_club}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block bg-[#E6FFA9] text-[#1A1F2C] px-6 py-3 rounded-full hover:scale-105"
