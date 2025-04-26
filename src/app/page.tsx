@@ -34,6 +34,8 @@ interface BodyData {
   header: { title: string; subtitle: string; cta: { text: string; link: string } };
   about: { title: string; description: string };
   recruitment: { title: string; description: string };
+  lisbonClub: { title: string; description: string };
+  globalCommunity: { title: string; description: string };
 }
 
 // Datos de marca con imágenes en base64 y enlaces
@@ -53,6 +55,9 @@ const brand = {
   telegram_url: "https://t.me/broteaofficial",
   twitter_url: "https://x.com/broteaofficial",
   instagram_url: "https://www.instagram.com/broteaofficial",
+  linktree: "https://linktr.ee/brotea",
+  wa_global_community: "https://chat.whatsapp.com/CoxaYEaR7rxJL5jVWxCaOO",
+  wa_lisbon_club: "https://chat.whatsapp.com/Cm6G2GDfCWi1Vdrha0ZLuu",
   support_email: "hello@brotea.xyz",
 };
 
@@ -86,7 +91,7 @@ export default function Home() {
             "Impulsando el desarrollo de estudiantes y emprendedores a través de la colaboración y la tecnología.",
           cta: { 
             text: locale === 'en' ? "Join Brotea" : "Únete a Brotea", 
-            link: "https://t.me/broteaofficial" 
+            link: "https://linktr.ee/brotea" 
           },
         },
         about: {
@@ -135,10 +140,9 @@ export default function Home() {
 
   const navItems = [
     { id: "home", label: "Home", href: "/" },
-    { id: "about", label: "About us", href: "/#about" },
-    { id: "how", label: "How it works", href: "/#how" },
+    { id: "services", label: "Services", href: "https://global.brotea.xyz" },
+    { id: "corePartner", label: "Core Partner", href: "https://meredigroup.brotea.xyz" },
     { id: "stories", label: "Stories", href: "/stories" },
-    { id: "join", label: "Join us", href: "/#join" },
   ];
 
   return (
@@ -168,12 +172,14 @@ export default function Home() {
                 const getTranslationKey = (id: string) => {
                   if (id === "home") return "common.home";
                   if (id === "about") return "common.about";
+                  if (id === "services") return "common.services";
+                  if (id === "corePartner") return "common.corePartner";
                   if (id === "how") return "common.howItWorks";
                   if (id === "stories") return "common.stories";
                   return "common.joinUsNav";
                 };
                 
-                return item.id === "stories" ? (
+                return ['services', 'stories', 'corePartner' ].includes(item.id) ? (
                   <Link
                     key={item.id}
                     href={item.href}
@@ -212,6 +218,8 @@ export default function Home() {
                   const getTranslationKey = (id: string) => {
                     if (id === "home") return "common.home";
                     if (id === "about") return "common.about";
+                    if (id === "services") return "common.services";
+                    if (id === "corePartner") return "common.corePartner";
                     if (id === "how") return "common.howItWorks";
                     if (id === "stories") return "common.stories";
                     return "common.joinUsNav";
@@ -314,7 +322,7 @@ export default function Home() {
               <h2 className="pixel-text text-[60px] md:text-[100px] text-[#E6FFA9] text-center">
                 Academy
               </h2>
-              <button className="bg-[#0F0F1E] text-white px-6 py-2 rounded-xl hover:bg-[#0F0F1E]/90">
+              <button className="bg-[#0F0F1E] text-white px-6 py-2 rounded-xl hover:bg-[#0F0F1E]/90"  onClick={() => window.open(brand.linktree, "_blank")}>
                 <TranslatedText textKey="academy.discoverMore" />
               </button>
             </div>
@@ -331,10 +339,10 @@ export default function Home() {
             >
               <div className="relative z-10">
                 <h3 className="text-[24px] md:text-[32px] leading-tight font-medium mb-6 text-[#1A1F2C] font-pp-neue-machina">
-                  {data?.about?.title || "¿Qué es Brotea?"}
+                  {data?.globalCommunity?.title || "Brotea Global Community"}
                 </h3>
                 <Link
-                  href={brand.instagram_url}
+                  href={brand.wa_global_community}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block bg-[#E6FFA9] text-[#1A1F2C] px-6 py-3 rounded-full hover:scale-105"
@@ -350,13 +358,11 @@ export default function Home() {
               className="bg-[#FF8BA7] rounded-[24px] md:rounded-[32px] p-6 md:p-12 relative overflow-hidden"
             >
               <div className="relative z-10">
-                <h3 className="text-[24px] md:text-[32px] leading-tight font-medium mb-6 text-[#1A1F2C] font-pp-neue-machina">
-                  <TranslatedText textKey="project.title1" />
-                  <br />
-                  <TranslatedText textKey="project.title2" />
+              <h3 className="text-[24px] md:text-[32px] leading-tight font-medium mb-6 text-[#1A1F2C] font-pp-neue-machina">
+                  {data?.lisbonClub?.title || "Lisbon Club"}
                 </h3>
                 <Link
-                  href={brand.telegram_url}
+                  href={brand.wa_lisbon_club}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block bg-[#E6FFA9] text-[#1A1F2C] px-6 py-3 rounded-full hover:scale-105"
@@ -366,6 +372,7 @@ export default function Home() {
               </div>
             </motion.div>
           </section>
+
 
           {/* Grow */}
           <motion.section
@@ -475,7 +482,7 @@ export default function Home() {
                   "Si eres estudiante, experto en tecnología o tienes herramientas que puedan aportar a la comunidad, queremos conocerte."}
               </p>
               <button
-                onClick={() => window.open(brand.twitter_url, "_blank")}
+                onClick={() => window.open(brand.wa_global_community, "_blank")}
                 className="bg-[#E6FFA9] text-[#1A1F2C] px-6 py-3 rounded-full hover:scale-105"
               >
                 <TranslatedText textKey="join.joinNow" />

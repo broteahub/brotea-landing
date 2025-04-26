@@ -1,6 +1,8 @@
 {
   "common": {
     "home": "Inicio",
+    "services": "Services",
+    "corePartner": "Core Partner",
     "about": "Nosotros",
     "howItWorks": "Cómo funciona",
     "stories": "Historias",
@@ -44,6 +46,14 @@
   },
   "academy": {
     "discoverMore": "Descubre más"
+  },
+  "lisbonClub": {
+    "title": "Lisbon Club",
+    "discoverHere": "Join Here"
+  },
+  "globalCommunity": {
+    "title": "Brotea Global Community",
+    "discoverHere": "Join Here"
   },
   "about": {
     "title": "¿Qué es Brotea?",
