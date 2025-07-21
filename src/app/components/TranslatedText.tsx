@@ -1,11 +1,7 @@
 "use client";
 
 import { useTranslation } from '@/app/hooks/useTranslation';
-
-interface TranslatedTextProps {
-  textKey: string;
-  className?: string;
-}
+import { TranslatedTextProps } from '@/types';
 
 export default function TranslatedText({ textKey, className = '' }: TranslatedTextProps) {
   const { t, isLoaded } = useTranslation();

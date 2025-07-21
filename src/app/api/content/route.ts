@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getTranslations, Language } from '@/i18n';
+import type { ContentResponse } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,7 +14,7 @@ export async function GET(request: NextRequest) {
     const translations = getTranslations(locale);
     
     // Create content data structure from translations
-    const data = {
+    const data: Partial<ContentResponse> = {
       header: {
         title: translations.header.title,
         subtitle: translations.header.subtitle,
@@ -26,6 +27,14 @@ export async function GET(request: NextRequest) {
       recruitment: {
         title: translations.join.title,
         description: translations.join.description
+      },
+      lisbonClub: {
+        title: translations.lisbonClub?.title || 'Lisbon Club',
+        description: translations.lisbonClub?.description || ''
+      },
+      globalCommunity: {
+        title: translations.globalCommunity?.title || 'Global Community',
+        description: translations.globalCommunity?.description || ''
       }
     };
     

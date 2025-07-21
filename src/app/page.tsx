@@ -3,12 +3,14 @@
 import { useState, useEffect, FormEvent, useCallback } from "react";
 import { create } from "zustand";
 import { motion } from "framer-motion";
-import { Menu, X, Instagram, MessageCircle, Copyright } from "lucide-react";
+// Removed Menu import - now handled by Navigation component
 import Image from "next/image";
 import Link from "next/link";
 import LanguageSwitcher from "./components/LanguageSwitcher";
 import TranslatedText from "./components/TranslatedText";
 import { useTranslation } from "./hooks/useTranslation";
+import { Footer } from "@/components/layout/Footer";
+import { Navigation } from "@/components/layout/Navigation";
 
 // Estado para el formulario con Zustand
 const useNewsletterStore = create<{
@@ -30,16 +32,14 @@ const useNewsletterStore = create<{
 }));
 
 // Tipos de la data de contenido
-interface BodyData {
-  header: { title: string; subtitle: string; cta: { text: string; link: string } };
-  about: { title: string; description: string };
-  recruitment: { title: string; description: string };
-  lisbonClub: { title: string; description: string };
-  globalCommunity: { title: string; description: string };
-}
+// Import types
+import type { ContentResponse, BrandData, NavItem } from '@/types';
+
+// Type alias for backward compatibility
+type BodyData = ContentResponse;
 
 // Datos de marca con imágenes en base64 y enlaces
-const brand = {
+const brand: BrandData = {
   logo_base64:
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAQAAAAAYLlVAAAApElEQVR4nO3YMQrCQBBF4a79VyZshL2gBL2eAkSxCbIGXIFX/4LWErwLjjgAtby38Sc2ZY14SlX4z04qfEzDx4CO9DoOp22n+qJMAx6RCvKICk1XQpOW6rIn7PKiZIg7Sd4+AbXz9csCF+KOnysIT4XOh3QPxz7RCrFo31y38wN3wfL8f+ANn2UkCwe/C1fM1C4cf83feRNzo3lN2h3MCc+AAAAAElFTkSuQmCC",
   ios_badge_base64:
@@ -62,7 +62,6 @@ const brand = {
 };
 
 export default function Home() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [data, setData] = useState<BodyData | null>(null);
 
   const { locale, isLoaded } = useTranslation();
@@ -146,130 +145,21 @@ export default function Home() {
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
-      setIsMenuOpen(false);
     }
   };
 
   const navItems = [
-    { id: "home", label: "Home", href: "/" },
-    { id: "services", label: "Services", href: "https://global.brotea.xyz" },
-    { id: "corePartner", label: "Core Partner", href: "https://meredigroup.brotea.xyz" },
+    { id: "home", label: "Home", action: () => scrollToSection("hero") },
+    { id: "services", label: "Services", href: "https://global.brotea.xyz", isExternal: true },
     { id: "stories", label: "Stories", href: "/stories" },
   ];
 
   return (
     <div className="flex flex-col min-h-screen bg-[#8180FF]">
-      <nav className="p-6 relative z-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-center">
-            <Link href="/" className="text-[32px] tracking-wider text-[#1A1F2C]">
-              <Image 
-                src="/assets/images/BROTEA_LOGO-SECUNDARIO_BLANCO_B_1_500px_2.png"
-                alt="Brotea Logo"
-                width={160}
-                height={40}
-                className="object-contain"
-              />
-            </Link>
-            <button
-              className="md:hidden bg-[#0F0F1E] p-2 rounded-full"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              <Menu className="w-6 h-6 text-white" />
-            </button>
-            <div className="hidden md:flex items-center space-x-8">
-              {navItems.map((item) => {
-                // Helper function to get the translation key
-                const getTranslationKey = (id: string) => {
-                  if (id === "home") return "common.home";
-                  if (id === "about") return "common.about";
-                  if (id === "services") return "common.services";
-                  if (id === "corePartner") return "common.corePartner";
-                  if (id === "how") return "common.howItWorks";
-                  if (id === "stories") return "common.stories";
-                  return "common.joinUsNav";
-                };
-                
-                return ['services', 'stories', 'corePartner' ].includes(item.id) ? (
-                  <Link
-                    key={item.id}
-                    href={item.href}
-                    className="text-[#1A1F2C] hover:text-[#1A1F2C]/80 transition-colors"
-                  >
-                    <TranslatedText textKey={getTranslationKey(item.id)} />
-                  </Link>
-                ) : (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.id)}
-                    className="text-[#1A1F2C] hover:text-[#1A1F2C]/80 transition-colors"
-                  >
-                    <TranslatedText textKey={getTranslationKey(item.id)} />
-                  </button>
-                );
-              })}
-              <button
-                onClick={() => scrollToSection("newsletter")}
-                className="bg-[#0F0F1E] text-white px-6 py-2 rounded-full hover:bg-[#0F0F1E]/90"
-              >
-                <TranslatedText textKey="common.joinUs" />
-              </button>
-              <LanguageSwitcher />
-            </div>
-          </div>
-          {isMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="md:hidden absolute left-0 right-0 top-full mt-2 p-4 bg-[#0F0F1E] rounded-xl mx-4"
-            >
-              <div className="flex flex-col space-y-4">
-                {navItems.map((item) => {
-                  // Helper function to get the translation key
-                  const getTranslationKey = (id: string) => {
-                    if (id === "home") return "common.home";
-                    if (id === "about") return "common.about";
-                    if (id === "services") return "common.services";
-                    if (id === "corePartner") return "common.corePartner";
-                    if (id === "how") return "common.howItWorks";
-                    if (id === "stories") return "common.stories";
-                    return "common.joinUsNav";
-                  };
-                  
-                  return item.id === "stories" ? (
-                    <Link
-                      key={item.id}
-                      href={item.href}
-                      className="text-white hover:text-white/80 text-left transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      <TranslatedText textKey={getTranslationKey(item.id)} />
-                    </Link>
-                  ) : (
-                    <button
-                      key={item.id}
-                      onClick={() => scrollToSection(item.id)}
-                      className="text-white hover:text-white/80 text-left transition-colors"
-                    >
-                      <TranslatedText textKey={getTranslationKey(item.id)} />
-                    </button>
-                  );
-                })}
-                <button
-                  onClick={() => scrollToSection("newsletter")}
-                  className="bg-[#E6FFA9] text-black px-6 py-2 rounded-xl text-left transition-colors hover:bg-[#E6FFA9]/90"
-                >
-                  <TranslatedText textKey="common.joinUs" />
-                </button>
-                <div className="pt-2">
-                  <LanguageSwitcher />
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </div>
-      </nav>
+      <Navigation 
+        navItems={navItems}
+        onJoinUsClick={() => scrollToSection("newsletter")}
+      />
 
       <main className="flex-grow">
         <div className="max-w-7xl mx-auto px-4 md:px-6 space-y-8">
@@ -545,7 +435,10 @@ export default function Home() {
         </div>
       </main>
 
-      <Footer />
+      <Footer 
+        variant="social"
+        showCopyrightIcon={true}
+      />
     </div>
   );
 }
@@ -685,33 +578,3 @@ function NewsletterForm() {
   );
 }
 
-function Footer() {
-  return (
-    <footer className="bg-[#0F0F1E] text-white p-6 mt-8">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 flex items-center justify-center bg-white rounded-full">
-            <span className="pixel-text text-[#0F0F1E] text-sm">B</span>
-          </div>
-          <div className="flex items-center space-x-1">
-            <Copyright className="w-4 h-4 text-white" />
-            <span className="font-pp-neue-machina text-sm md:text-base">
-              {new Date().getFullYear()} Brotea. <TranslatedText textKey="footer.rights" />
-            </span>
-          </div>
-        </div>
-        <div className="flex space-x-6">
-          <a href={brand.telegram_url} target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="text-white hover:text-[#E6FFA9] transition-colors">
-            <MessageCircle className="w-6 h-6" />
-          </a>
-          <a href={brand.twitter_url} target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="text-white hover:text-[#E6FFA9] transition-colors">
-            <X className="w-6 h-6" />
-          </a>
-          <a href={brand.instagram_url} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-white hover:text-[#E6FFA9] transition-colors">
-            <Instagram className="w-6 h-6" />
-          </a>
-        </div>
-      </div>
-    </footer>
-  );
-}
