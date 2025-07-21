@@ -88,7 +88,7 @@ export function Footer({
                       : 'text-gray-400 hover:text-white'
                   } transition-colors`}
                 >
-                  <TranslatedText id={link.label} />
+                  <TranslatedText textKey={link.label} />
                 </a>
               ))
             )}

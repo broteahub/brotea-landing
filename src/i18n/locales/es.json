@@ -13,31 +13,6 @@
     "errorMessage": "Lo sentimos, ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde o contáctanos a través de nuestras redes sociales.",
     "close": "Cerrar"
   },
-  "stories": {
-    "pageTitle": "Historias que inspiran",
-    "pageSubtitle": "Descubre cómo Brotea ha transformado las vidas de los miembros de nuestra comunidad.",
-    "jose": {
-      "title": "El Camino de José",
-      "content1": "A los 25 años, José siempre había sentido curiosidad por la tecnología, pero nunca pensó que la programación fuera algo que pudiera aprender. Con experiencia en marketing, sentía que el código era un mundo complejo reservado para aquellos con títulos técnicos o \"talento natural\".",
-      "content2": "\"Siempre vi a los programadores como personas con un nivel de genio que habían estado programando desde que eran niños\", recuerda José. \"Pensé que había perdido mi oportunidad\".",
-      "content3": "Eso cambió cuando José descubrió Brotea. A través de nuestro enfoque centrado en la comunidad y nuestra metodología de aprendizaje paso a paso, José se dio cuenta de que la programación no se trataba de una habilidad innata, sino de persistencia, práctica y tener la guía adecuada.",
-      "content4": "\"Lo que marcó la diferencia con Brotea fue cómo desglosaron conceptos complejos en piezas manejables. Los mentores siempre estaban ahí para ayudar cuando me atascaba, y ser parte de una comunidad de aprendices me hizo sentir que no estaba solo en este viaje\".",
-      "content5": "Seis meses después de unirse a Brotea, José construyó su primera aplicación web: una herramienta que ayudaba a pequeñas empresas de su comunidad a gestionar su presencia en redes sociales. Hoy, trabaja como desarrollador junior y continúa desarrollando sus habilidades a través de los cursos avanzados de Brotea.",
-      "content6": "\"Brotea me mostró que la programación no solo es posible, sino accesible para cualquiera dispuesto a esforzarse. Lo más importante que aprendí no fue un lenguaje de programación, sino la confianza de que puedo aprender cualquier cosa con el enfoque y el apoyo adecuados\"."
-    },
-    "cristhian": {
-      "title": "La Experiencia de Cristhian en ETHDenver2025",
-      "image": "/assets/images/stories/cristhian-ethdenver-story.jpeg",
-      "content1": "¡Hola! Soy Cristhian, fundador de Brotea. Estoy emocionado de compartir que hemos sido finalistas en ETHDenver2025 junto a Frutero Club y Dabl Club. ¡Qué experiencia tan increíble!",
-      "content2": "Quiero aprovechar para agradecer especialmente a Julio, un desarrollador excepcional que ha sido fundamental en nuestro camino. Él es quien me inspiró a seguir hackeando y explorando nuevas posibilidades.",
-      "content3": "Su ética de trabajo incansable, su capacidad para encontrar soluciones ante cualquier desafío y su dedicación constante lo convierten en un verdadero referente para todos nosotros.",
-      "content4": "Los momentos compartidos con él y con Germán durante este evento han sido no solo productivos sino también tremendamente divertidos. Esta combinación de pasión, talento y camaradería es lo que hace que proyectos como Brotea cobren vida y alcancen nuevas alturas."
-    },
-    "cta": {
-      "title": "Comienza Tu Propia Historia",
-      "subtitle": "Únete a Brotea hoy y descubre lo accesible que puede ser la programación con la comunidad y la guía adecuadas."
-    }
-  },
   "header": {
     "title": "Conexiones que brotan, ideas que transforman.",
     "subtitle": "Donde talento y oportunidades se encuentran para crear un futuro más inclusivo.",
@@ -96,5 +71,29 @@
   },
   "footer": {
     "rights": "Todos los derechos reservados."
+  },
+  "stories": {
+    "pageTitle": "Historias de Éxito Brotea",
+    "pageSubtitle": "Conoce las historias inspiradoras de nuestra comunidad y cómo Brotea ha transformado sus vidas.",
+    "cristhian": {
+      "title": "Mi experiencia aprendiendo Solidity",
+      "content1": "Cuando me enteré de que Brotea y BuidlGuidl estaban organizando un encuentro en ETHDenver 2024, no lo dudé. Compré mi boleto a Denver, Colorado.",
+      "content2": "Fue increíble. Austin Griffith explicó las bases de desarrollo en la blockchain usando Scaffold-ETH, un framework open source para construir dApps en Ethereum de manera rápida.",
+      "content3": "Durante el evento tuve la oportunidad de construir proyectos prácticos, desde smart contracts básicos hasta aplicaciones descentralizadas completas. La metodología hands-on y el apoyo de la comunidad hicieron que conceptos complejos fueran accesibles.",
+      "content4": "Hoy, gracias a esa experiencia y el apoyo continuo de Brotea, trabajo como desarrollador blockchain y contribuyo activamente a proyectos Web3. Brotea no solo me dio conocimiento técnico, sino una red de contactos invaluable."
+    },
+    "jose": {
+      "title": "De Ingeniero a Tech Lead Web3",
+      "content1": "Mi viaje en Brotea comenzó cuando buscaba hacer una transición hacia Web3. Como ingeniero de software tradicional, sentía que necesitaba una comunidad que entendiera los desafíos únicos de este cambio.",
+      "content2": "A través de los programas de mentoría de Brotea, conecté con expertos que me guiaron en mi aprendizaje de smart contracts, DeFi y arquitecturas descentralizadas.",
+      "content3": "Lo que más valoro es el enfoque práctico: no solo aprendí teoría, sino que participé en hackathons, contribuí a proyectos reales y recibí feedback constante de profesionales experimentados.",
+      "content4": "El momento decisivo fue cuando, con el apoyo de mi mentor en Brotea, lancé mi primer protocolo DeFi. La experiencia y confianza ganadas me llevaron a mi posición actual como Tech Lead en una startup Web3.",
+      "content5": "Brotea me enseñó que la tecnología es solo una parte de la ecuación. La comunidad, el apoyo mutuo y la visión compartida de construir un futuro descentralizado son lo que realmente marca la diferencia.",
+      "content6": "Ahora, como mentor en Brotea, devuelvo a la comunidad ayudando a otros en su transición a Web3, cerrando el círculo que comenzó con mi propia búsqueda de crecimiento."
+    },
+    "cta": {
+      "title": "¿Listo para escribir tu propia historia?",
+      "subtitle": "Únete a Brotea y forma parte de una comunidad que transforma vidas a través de la tecnología y la colaboración."
+    }
   }
 }

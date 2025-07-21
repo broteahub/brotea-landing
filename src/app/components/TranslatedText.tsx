@@ -10,5 +10,10 @@ export default function TranslatedText({ textKey, className = '' }: TranslatedTe
     return <span className={className}>...</span>;
   }
   
+  if (!textKey || typeof textKey !== 'string') {
+    console.warn('TranslatedText: Invalid textKey prop:', textKey);
+    return <span className={className}></span>;
+  }
+  
   return <span className={className}>{t(textKey)}</span>;
 }

@@ -43,6 +43,10 @@ export function useTranslation() {
   }, []);
 
   const t = (key: string): string => {
+    if (!key || typeof key !== 'string') {
+      console.error('useTranslation: Invalid key passed to t function:', key, new Error().stack);
+      return '';
+    }
     return translate(key, locale);
   };
 

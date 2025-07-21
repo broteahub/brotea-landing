@@ -45,6 +45,11 @@ export function Navigation({
   };
 
   const renderNavItem = (item: NavItem, isMobile = false) => {
+    if (!item || !item.id) {
+      console.warn('Invalid nav item:', item);
+      return null;
+    }
+    
     const isCurrentPage = item.href === pathname;
     const translationKey = getTranslationKey(item.id);
     

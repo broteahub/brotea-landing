@@ -20,6 +20,12 @@ const locales: Record<Language, Translations> = {
 
 // Helper function to get nested object properties by string path
 export const getNestedValue = (obj: Record<string, unknown>, path: string): string => {
+  // Add null/undefined checks for path
+  if (!path || typeof path !== 'string') {
+    console.warn('Invalid translation key:', path);
+    return '';
+  }
+  
   const keys = path.split('.');
   let result: unknown = obj;
   
@@ -36,6 +42,10 @@ export const getNestedValue = (obj: Record<string, unknown>, path: string): stri
 
 // Translation function
 export const translate = (key: string, locale: Language = 'es'): string => {
+  if (!key || typeof key !== 'string') {
+    console.warn('Invalid translation key provided to translate function:', key);
+    return '';
+  }
   const translations = locales[locale] || locales.es;
   return getNestedValue(translations, key) || key;
 };
